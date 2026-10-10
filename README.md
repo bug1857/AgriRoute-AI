@@ -1,5 +1,7 @@
 # AgriRoute AI · Round 2 prototype
 
+**Licence scope:** The MIT licence applies only to original AgriRoute AI source code developed with Codex assistance, to the extent the project owner holds licensing rights. Third-party assets, dependencies, services, datasets and non-code material are excluded. See [LICENSE_SCOPE.md](LICENSE_SCOPE.md).
+
 Original Project 1 synthetic world with a premium website, deterministic planner and genuine server-side Gemini function calling. Checkpoint 3 adds a reproducible shared-capacity 30-day A/B simulation and frozen evaluation in the existing Demo Lab. One authentic five-tool Gemini run is available only as an exact-match isolated replay; Policy C remains INCOMPLETE at 1/30 and inference is locked. Browser acceptance remains blocked. The original Demo Lab prices, weather, farms, markets, storage availability and transport estimates are synthetic. Quote results are estimates, not realized benefits.
 
 ```sh
