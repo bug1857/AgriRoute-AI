@@ -2,12 +2,12 @@ import { object } from './live';
 export class LocalApiError extends Error{constructor(message:string,public status=400){super(message);}}
 const LOCAL_HOSTS=['localhost:3010','127.0.0.1:3010'] as const;
 function hostOf(request:Request){return request.headers.get('host')??new URL(request.url).host;}
-export function isHostedRequest(request:Request){return !LOCAL_HOSTS.some(host=>host===hostOf(request));}
+export function isHostedRequest(request:Request){return process.env.VERCEL==='1'||process.env.APP_ORIGIN?.startsWith('https://')===true||!LOCAL_HOSTS.some(host=>host===hostOf(request));}
 /** Allow the original localhost demo, or exactly the configured HTTPS deployment host.
  * Never infer authorization from an arbitrary Host or X-Forwarded-Host header. */
 export function requireLocal(request:Request){
   const url=new URL(request.url),host=hostOf(request),origin=request.headers.get('origin');
-  const isLocal=LOCAL_HOSTS.some(value=>value===host)&&['localhost','127.0.0.1'].includes(url.hostname);
+  const isLocal=!isHostedRequest(request)&&LOCAL_HOSTS.some(value=>value===host)&&['localhost','127.0.0.1'].includes(url.hostname);
   let hostedOrigin:string|null=null;
   try{const allowed=new URL(process.env.APP_ORIGIN??'');if(allowed.protocol==='https:'&&allowed.host===host&&allowed.username===''&&allowed.password===''&&allowed.pathname==='/'&&allowed.search===''&&allowed.hash==='')hostedOrigin=allowed.origin;}catch{/* Fail closed when the production origin is absent or invalid. */}
   if(!isLocal&&!hostedOrigin)throw new LocalApiError('Host not authorized; configure APP_ORIGIN for HTTPS deployment',403);
