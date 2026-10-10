@@ -1,7 +1,10 @@
 import { createHash, randomUUID } from "node:crypto";
 import type { Content, FunctionDeclaration, GenerateContentParameters, GenerateContentResponse } from "@google/genai";
 import { FunctionCallingConfigMode } from "@google/genai";
-import { world, geo, source } from "./world";
+import { world as originalWorld, geo as originalGeo, source,type World,type Geography } from "./world";
+import type {Reservation} from './planner';
+const world=originalWorld;
+export type RuntimeContext={evidence:World;geography:Geography;reservations:Reservation[]};
 import { assumptions, checkStorage, defaultScenario, distanceKm, estimateSpoilage, getPriceForecast, getWeather, planLot, riskMargins, transportCost, validateScenario } from "./planner";
 import type { AgentInput, AgentTrace, ToolEvent } from "./agent-types";
 
@@ -42,7 +45,10 @@ export const toolDeclarations: FunctionDeclaration[] = [
   {name:"transport_cost",description:"Synthetic modelled distance, cost and transit including rain; not a live road quote.",parametersJsonSchema:schema({origin:str("Current lot's region"),market:str("Exact market ID"),kg:num("Exact current lot weight")})},
 ];
 
-export function executeTool(name: string, value: unknown, input: AgentInput) {
+const sharedSystem=SYSTEM+' If no eligible candidates exist, still call all five tools, then return {"candidateId":null}. Shared candidates include full temporal reservations.';
+const sharedTools=toolDeclarations.map(t=>t.name==='check_storage'?{...t,description:'Observed shared capacity; authoritative candidates validate their full reservation interval.'}:t);
+export function executeTool(name: string, value: unknown, input: AgentInput,runtime?:RuntimeContext) {
+  const world=runtime?.evidence??originalWorld,geo=runtime?.geography??originalGeo;
   const lot=world.lots.find(l=>l.lot_id===input.lotId)!;
   const weather=getWeather(world,lot.region,lot.harvest_day);
   const same=(actual: unknown,expected: unknown)=>{if(actual!==expected)throw new Error("Arguments must match the bound lot context");};
@@ -55,8 +61,8 @@ export function executeTool(name: string, value: unknown, input: AgentInput) {
     case "get_weather": {const a=object(value,["region"]);same(a.region,lot.region);return {source:"synthetic-seed-42",...weather};}
     case "check_storage": {
       const a=object(value,["region","kg"]);same(a.region,lot.region);same(a.kg,lot.kg);
-      const storage=checkStorage(world,lot.region,lot.kg,lot.harvest_day,lot.harvest_day+1);
-      return {source:"synthetic-seed-42",scope:"single lot; no reservations",...storage,costPerKgDay:storage.costPerKgDay*input.scenario.storageCostMultiplier};
+      const storage=checkStorage(world,lot.region,lot.kg,lot.harvest_day,lot.harvest_day+1,runtime?.reservations??[]);
+      return {source:"synthetic-seed-42",scope:runtime?"shared-capacity observed snapshot; one-day storage tool check":"single lot; no reservations",...storage,costPerKgDay:storage.costPerKgDay*input.scenario.storageCostMultiplier};
     }
     case "estimate_spoilage": {
       const a=object(value,["crop","days","temp"]);same(a.crop,lot.crop);same(a.temp,weather.temp_c);const days=number(a.days,0,30);
@@ -81,17 +87,18 @@ export function providerFailure(error: unknown) {
   if(e?.status===404)return "model_unavailable";
   return "model_request_failed"; // Provider errors can contain credentials; never persist their raw text.
 }
-export async function runAgent(value: unknown, model: Model, timeoutMs=30000, recordProgress?: (trace:AgentTrace)=>Promise<void>): Promise<AgentTrace> {
+export async function runAgent(value: unknown, model: Model, timeoutMs=30000, recordProgress?: (trace:AgentTrace)=>Promise<void>,runtime?:RuntimeContext): Promise<AgentTrace> {
+  const world=runtime?.evidence??originalWorld,geo=runtime?.geography??originalGeo;
   const input=validateAgentInput(value);
   const lot=world.lots.find(l=>l.lot_id===input.lotId)!;
-  const plan=planLot(world,geo,lot,input.risk,input.scenario);
-  const trace:AgentTrace={version:"agriroute.agent-trace.v1",runId:randomUUID(),source:model.source,model:model.name,sdkVersion:model.sdkVersion,startedAt:timestamp(),finishedAt:"",datasetSha256:source.sha256,contextSha256:contextHash(input),input,plannerVersion:"checkpoint-1.v1",toolVersion:"checkpoint-2.v1",status:"failed",modelRequests:[],tools:[],toolAttempts:0,selection:null,fallback:plan.best,fallbackStatus:plan.best?"deterministic_available":"no_feasible_candidate"};
-  const contents:Content[]=[{role:"user",parts:[{text:JSON.stringify({input,lot,harvestWeather:plan.weather,candidates:plan.candidates.filter(c=>c.eligible).map(c=>({candidateId:c.id,action:c.action,market:c.market,storeDays:c.storeDays,net:c.net,gross:c.gross,transport:c.transport,storage:c.storage,remainingHours:c.remainingHours,transitHours:c.transitHours})),instruction:"Call all five tools, then select a supplied candidateId. Use one parallel batch when possible."})}]}];
+  const plan=planLot(world,geo,lot,input.risk,input.scenario,runtime?.reservations??[]);
+  const trace:AgentTrace={version:"agriroute.agent-trace.v1",runId:randomUUID(),source:model.source,model:model.name,sdkVersion:model.sdkVersion,startedAt:timestamp(),finishedAt:"",datasetSha256:source.sha256,contextSha256:contextHash(input,runtime),input,plannerVersion:"checkpoint-1.v1",toolVersion:runtime?"checkpoint-2.shared.v1":"checkpoint-2.v1",status:"failed",modelRequests:[],tools:[],toolAttempts:0,selection:null,fallback:plan.best,fallbackStatus:plan.best?"deterministic_available":"no_feasible_candidate"};
+  const contents:Content[]=[{role:"user",parts:[{text:JSON.stringify({input,lot,...(runtime?{observedMarkets:geo.markets.map(m=>({id:m.id,name:m.name}))}:{}),harvestWeather:plan.weather,candidates:plan.candidates.filter(c=>c.eligible).map(c=>({candidateId:c.id,action:c.action,market:c.market,storeDays:c.storeDays,net:c.net,gross:c.gross,transport:c.transport,storage:c.storage,remainingHours:c.remainingHours,transitHours:c.transitHours})),instruction:"Call all five tools, then select a supplied candidateId. Use one parallel batch when possible."})}]}];
   const successful=new Set<string>();const seen=new Set<string>();
   try {
-    if(!plan.best)throw new Error("no_feasible_candidate");
+    if(!plan.best&&!runtime)throw new Error("no_feasible_candidate");
     for(let turn=0;turn<MAX_MODEL_REQUESTS;turn++){
-      const request:GenerateContentParameters={model:model.name,contents:structuredClone(contents),config:{systemInstruction:SYSTEM,tools:[{functionDeclarations:toolDeclarations}],toolConfig:{functionCallingConfig:{mode:successful.size===5?FunctionCallingConfigMode.NONE:FunctionCallingConfigMode.ANY,...(successful.size===5?{}:{allowedFunctionNames:TOOL_NAMES.filter(n=>!successful.has(n))})}},temperature:0,maxOutputTokens:2048,...(successful.size===5?{responseMimeType:"application/json",responseJsonSchema:schema({candidateId:{type:"string",enum:plan.candidates.filter(c=>c.eligible).map(c=>c.id)}})}:{})}};
+      const request:GenerateContentParameters={model:model.name,contents:structuredClone(contents),config:{systemInstruction:runtime?sharedSystem:SYSTEM,tools:[{functionDeclarations:runtime?sharedTools:toolDeclarations}],toolConfig:{functionCallingConfig:{mode:successful.size===5?FunctionCallingConfigMode.NONE:FunctionCallingConfigMode.ANY,...(successful.size===5?{}:{allowedFunctionNames:TOOL_NAMES.filter(n=>!successful.has(n))})}},temperature:0,maxOutputTokens:2048,...(successful.size===5?{responseMimeType:"application/json",responseJsonSchema:schema({candidateId:plan.best?{type:"string",enum:plan.candidates.filter(c=>c.eligible).map(c=>c.id)}:{type:"null"}})}:{})}};
       const event={index:turn+1,startedAt:timestamp(),finishedAt:"",request:{...structuredClone(request),contents:contents.map(c=>({...c,parts:c.parts?.filter(p=>!p.thought)}))}} as AgentTrace["modelRequests"][number];
       trace.modelRequests.push(event);
       const controller=new AbortController();let timer:ReturnType<typeof setTimeout>;
@@ -116,7 +123,7 @@ export async function runAgent(value: unknown, model: Model, timeoutMs=30000, re
             if(trace.toolAttempts>MAX_TOOL_CALLS)throw new Error("six_call_limit");
             const key=hash({name:call.name,args:call.args&&Object.fromEntries(Object.entries(call.args).sort(([a],[b])=>a.localeCompare(b)))});
             if(seen.has(key))throw new Error("repeated_tool_call");seen.add(key);
-            tool.result=executeTool(tool.name,tool.args,input);tool.status="ok";successful.add(tool.name);
+            tool.result=executeTool(tool.name,tool.args,input,runtime);tool.status="ok";successful.add(tool.name);
             results.push({functionResponse:{id:call.id,name:tool.name,response:{result:tool.result}}});
           }catch(error){tool.error=(error as Error).message;failed=true;}finally{tool.finishedAt=timestamp();}
         }
@@ -128,17 +135,19 @@ export async function runAgent(value: unknown, model: Model, timeoutMs=30000, re
       const text=content.parts.filter(p=>!p.thought).map(p=>p.text??"").join("");
       let selection:Record<string,unknown>;
       try{selection=object(JSON.parse(text),["candidateId"]);}catch{throw new Error("invalid_selection_format");}
+      if(runtime&&!plan.best&&selection.candidateId===null){trace.status="infeasible";trace.failure="no_feasible_candidate_verified";break;}
       if(typeof selection.candidateId!=="string")throw new Error("invalid_candidate_id");
-      const authoritative=planLot(world,geo,lot,input.risk,input.scenario).candidates.find(c=>c.id===selection.candidateId&&c.eligible);
+      const authoritative=planLot(world,geo,lot,input.risk,input.scenario,runtime?.reservations??[]).candidates.find(c=>c.id===selection.candidateId&&c.eligible);
       if(!authoritative)throw new Error("invalid_candidate_id");
       trace.selection=authoritative;trace.fallback=null;trace.fallbackStatus="not_used";trace.status="success";break;
     }
-    if(trace.status!=="success")throw new Error("model_request_limit");
+    if(trace.status!=="success"&&trace.status!=="infeasible")throw new Error("model_request_limit");
   }catch(error){trace.failure=(error as Error).message;}
   trace.finishedAt=timestamp();return trace;
 }
 
-export function contextHash(input:AgentInput) {
-  const candidates=planLot(world,geo,world.lots.find(l=>l.lot_id===input.lotId)!,input.risk,input.scenario).candidates;
-  return hash({input,geo,assumptions,candidates,SYSTEM,toolDeclarations});
+export function contextHash(input:AgentInput,runtime?:RuntimeContext) {
+  const world=runtime?.evidence??originalWorld,geo=runtime?.geography??originalGeo;
+  const candidates=planLot(world,geo,world.lots.find(l=>l.lot_id===input.lotId)!,input.risk,input.scenario,runtime?.reservations??[]).candidates;
+  return hash({input,geo,assumptions,candidates,SYSTEM,toolDeclarations,...(runtime?{evidence:runtime.evidence,reservations:runtime.reservations,toolVersion:'checkpoint-2.shared.v1',requestContract:{system:sharedSystem,tools:sharedTools}}:{})});
 }

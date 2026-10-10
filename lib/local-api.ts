@@ -1,6 +1,6 @@
 import { object } from './live';
 export class LocalApiError extends Error{constructor(message:string,public status=400){super(message);}}
-export function requireLocal(request:Request){const url=new URL(request.url),origin=request.headers.get('origin');if(!['localhost','127.0.0.1'].includes(url.hostname)||url.port!=='3010'||(origin&&origin!==url.origin))throw new LocalApiError('Local demo only',403);}
+export function requireLocal(request:Request){const url=new URL(request.url),origin=request.headers.get('origin'),host=request.headers.get('host')??url.host;if(!['localhost:3010','127.0.0.1:3010'].includes(host)||(origin&&origin!==`http://${host}`))throw new LocalApiError('Local demo only',403);}
 export async function readLocalJson(request:Request){
   requireLocal(request);if(!request.headers.get('content-type')?.startsWith('application/json'))throw new LocalApiError('JSON required',415);
   const reader=request.body?.getReader();if(!reader)throw new LocalApiError('Body required');const chunks:Uint8Array[]=[];let size=0;

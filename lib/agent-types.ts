@@ -7,8 +7,8 @@ export type AgentTrace = {
   version: "agriroute.agent-trace.v1"; runId: string; source: "google-genai" | "mocked-test";
   model: string; sdkVersion: string; startedAt: string; finishedAt: string;
   datasetSha256: string; contextSha256: string; input: AgentInput;
-  plannerVersion: "checkpoint-1.v1"; toolVersion: "checkpoint-2.v1";
-  status: "success" | "failed"; failure?: string;
+  plannerVersion: "checkpoint-1.v1"; toolVersion: "checkpoint-2.v1"|"checkpoint-2.shared.v1";
+  status: "success" | "failed" | "infeasible"; failure?: string;
   modelRequests: ModelEvent[]; tools: ToolEvent[]; toolAttempts: number;
   selection: Candidate | null; fallback: Candidate | null;
   fallbackStatus: "not_used" | "deterministic_available" | "no_feasible_candidate";

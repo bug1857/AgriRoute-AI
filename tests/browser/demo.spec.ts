@@ -72,7 +72,7 @@ test("Gemini replay and evaluation preserve provenance without critical runtime 
   await page.goto(`/demo?lot=${t.input.lotId}`);
   await page.getByRole("tab",{name:"Gemini",exact:true}).click();const panel=page.getByTestId("agent-panel");await expect(panel).toContainText("Authentic SDK record");
   await expect(panel.getByRole("button",{name:"Run Gemini · one free-tier attempt"})).toBeDisabled();
-  await panel.getByText("Actual tool requests and results",{exact:true}).click();
+  await panel.getByRole('tab',{name:/Tool receipts/}).click();const receipts=panel.locator('details.agent-trace:visible');if(!await receipts.evaluate(e=>e.hasAttribute('open')))await panel.getByText("Actual tool requests and results",{exact:true}).click();
   for(const tool of t.tools){await expect(panel.locator(".agent-trace summary").filter({hasText:`#${tool.index} ${tool.name}`})).toBeVisible();}
   const pending=page.waitForEvent("download");await panel.getByRole("button",{name:"Export trace",exact:true}).click();
   const file=await (await pending).path();expect(file).not.toBeNull();expect(JSON.parse(await readFile(file!,"utf8"))).toEqual(readiness.record);

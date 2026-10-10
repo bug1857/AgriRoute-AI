@@ -3,7 +3,7 @@ import type { Geography, Lot, World } from "./world";
 
 export const SIMULATION_VERSION="agriroute.simulation.v1";
 export const SIMULATION_RULES={horizonDays:30,risk:"balanced",ordering:"harvest_day then lot_id; existing dispatches/releases before new harvests",settlement:"floor(actual arrival day), arrival must be before day 30",spoilage:"cumulative linear exposure against each day's original heat-adjusted life; cold rate 0.25; cap at initial kg",transport:"origin-region dispatch-day rain adds 24h once; origin-region weather along the journey",storage:"reserve original kg on [harvest, dispatch); bill reserved original kg until departure/expiry, release on observed expiry",baseline:"nearest-market harvest-day dispatch; ignores soft risk margin, cannot sell spoiled kg",missingPolicyC:"no invented action or full-cohort totals; resolved-lot simulation is an isolated preview"} as const;
-export type Decision={kind:"baseline"|"deterministic"|"gemini_success"|"fallback"|"infeasible"|"missing_trace"|"trace_mismatch";candidateId:string|null;reason?:string;traceId?:string;traceSha256?:string;modelFailed?:boolean};
+export type Decision={kind:"baseline"|"deterministic"|"gemini_success"|"gemini_infeasible"|"fallback"|"infeasible"|"missing_trace"|"trace_mismatch";candidateId:string|null;reason?:string;traceId?:string;traceSha256?:string;modelFailed?:boolean};
 export type PolicyContext={lot:Lot;evidence:World;geography:Geography;plan:ReturnType<typeof planLot>;reservations:Reservation[];risk:Risk};
 export type Policy={id:"A"|"B"|"C";name:string;choose:(context:PolicyContext)=>Decision};
 export const baselinePolicy:Policy={id:"A",name:"Nearest-market immediate dispatch",choose:({plan})=>({kind:"baseline",candidateId:plan.baseline.id})};

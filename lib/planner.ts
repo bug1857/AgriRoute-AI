@@ -118,7 +118,7 @@ export function planLot(w: World, g: Geography, lot: Lot, risk: Risk, scenario: 
       if (arrival >= assumptions.simulationDays) hardReasons.push("Arrives after the 30-day simulation ends");
       if (hold && !stored.feasible) hardReasons.push(`Storage needs ${lot.kg}kg; only ${stored.availableKg}kg available`);
       const eligibility = riskEligibility(shelf.remainingHours, risk, hardReasons);
-      const price = getPriceForecast(w, market.id, lot.harvest_day, Math.floor(arrival)-lot.harvest_day) * (1 + scenario.priceChangePercent/100);
+      const price = getPriceForecast(w, market.id, lot.harvest_day, Math.min(30,Math.floor(arrival)-lot.harvest_day)) * (1 + scenario.priceChangePercent/100);
       const saleableKg = lot.kg * (1-shelf.fractionLost);
       const gross = cents(saleableKg * price);
       const storage = cents(lot.kg * stored.costPerKgDay * hold * scenario.storageCostMultiplier);

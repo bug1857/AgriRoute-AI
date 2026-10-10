@@ -1,0 +1,29 @@
+/* Presentation only; theme preference stays on this device. */
+.header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.header-actions .nav-cta{gap:10px;white-space:nowrap}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:10px 12px;border:1px solid var(--line);border-radius:24px;background:transparent;font-size:12px;font-weight:700}
+.theme-toggle:hover{background:var(--paper)}
+.theme-sun{display:none}html[data-theme=dark] .theme-sun{display:block}html[data-theme=dark] .theme-moon{display:none}
+.cohort-explanation{max-width:800px}.cohort-explanation>p{margin:12px 0;line-height:1.8}.farmer-home [lang=hi],.farmer-home .demo-title{font-family:'Noto Sans Devanagari',Manrope,sans-serif}.farmer-home section>p{margin:14px 0}
+@media(max-width:1250px){.site-header{height:auto;min-height:80px;display:grid;grid-template-columns:1fr auto;padding-top:12px;padding-bottom:12px;gap:10px}.site-header nav{grid-column:1/-1;grid-row:2;overflow-x:auto;flex-wrap:nowrap;max-width:100%;min-width:0}.site-header nav a{flex-shrink:0}}
+@media(max-width:600px){.site-header .brand{grid-column:1/-1}.header-actions{grid-column:1/-1;grid-row:2;justify-content:space-between}.site-header nav{grid-row:3}.header-actions .nav-cta{padding:10px 12px;font-size:12px;gap:6px}.theme-toggle{font-size:12px}.site-header{padding-left:15px;padding-right:15px}}
+@media screen{
+ html[data-theme=dark]{color-scheme:dark;--ivory:#0e1b15;--paper:#17271e;--ink:#ecf2e6;--muted:#b6c6ae;--line:#354b3b;--accent:#b6d088;--amber:#e7b485;--red:#ffb49d}
+ html[data-theme=dark] :is(.harvest-panel,.lot-row,.option,.calculation,.agent-trace details,.evaluation-table-wrap,.live-input-panel fieldset,.live-weather span,.live-candidate,.live-price-observations figure,.mandi-chart,.comparison-chart,.farmer-finances){background:var(--paper);border-color:var(--line)}
+ html[data-theme=dark] :is(.site-header nav,.source-strip,.live-banner,.workspace-tab-list,.agent-selection,.evaluation-delta,.synthetic-badge,.life-tag,.risk-heading strong,.scenario-change,.live-empty,.mandi-json,.offer-source-message,.agent-trace pre,.comparison-track,.bar-track){background:#213628;border-color:var(--line)}
+ html[data-theme=dark] :is(.lot-row.active,.option.selected,.site-header nav a.nav-active,.lot-row:hover,.option:hover,.button-outline:hover,.nav-cta:hover,.nav-cta[aria-current=page]){background:#304830;border-color:#90ae70;color:var(--ink)}
+ html[data-theme=dark] :is(.site-header nav a,.eyebrow,.brand-ai,.demo-title p,.demo-title h1 em,.section-intro p,.section-intro h2 em,.method-steps p,.source-strip p,.site-footer,.lab-overview>div,.overview-caption,.filters label,.whatif-controls label,.whatif-controls b,.lot-list-heading,.lot-row-title>small,.lot-row-title strong small,.life-tag,.map-caption,.panel-footnote,.lot-context,.selected-lot-heading h2 span,.risk-labels,.risk-panel small,.risk-panel p,.risk-panel p b,.alternatives-heading>span,.option>small,.option-life,.calculation-heading h3>span,.calculation-tag,.money-waterfall>div,.money-waterfall b,.weight-equation,.recalculated,.evidence-panel strong,.evidence-panel small,.export-status,.assumptions,.assumptions p,.agent-panel>p,.agent-selection strong,.agent-selection small,.agent-trace pre,.agent-trace p,.agent-trace small,.evaluation-delta span,.evaluation-delta small,.evaluation-delta p,.evaluation-note,.evaluation-table caption,.evaluation-table thead th,.evaluation-table tbody tr:last-child,.comparison-chart p,.comparison-chart small,.live-input-panel label,.live-input-panel legend,.live-muted,.live-message,.live-empty,.live-conditions,.live-candidate>small,.live-candidate dt,.workspace-tab-list [role=tab],.synthetic-badge,.offer-review label,.offer-review legend,.offer-evidence small,.lab-footer){color:var(--muted)}
+ html[data-theme=dark] :is(.lab-overview strong,.evaluation-delta strong,.live-net,.mandi-metrics strong){color:var(--ink)}
+ html[data-theme=dark] :is(.evaluation-delta strong.negative-result,.negative-result){color:var(--red)}
+ html[data-theme=dark] :is(input:not([type=range]):not([type=checkbox]),select,textarea,.mandi-history-label select){background:#112018;color:var(--ink);border-color:#54704d}
+ html[data-theme=dark] :is(.constraint-warning,.life-tag.urgent,.trace-status.failed,.live-candidate.unavailable .synthetic-badge){background:#39281e;color:#ffcfad;border-color:#826044}
+ html[data-theme=dark] .live-blockers{color:#ffcfad}
+ html[data-theme=dark] :is(.best-label,.trace-status.ok){background:#375131;color:#e2f4bd}
+ html[data-theme=dark] .excluded-label{background:#392e22;color:#edcfa9}
+ html[data-theme=dark] :is(.evaluation-table tbody tr:last-child,.agent-controls button:disabled,.button-outline:disabled){background:#213628;color:var(--muted)}
+ html[data-theme=dark] .workspace-tab-list [aria-selected=true]{background:#42643a;color:#f0f8e5}
+ html[data-theme=dark] :is(.lot-row,.lot-list-heading,.panel-footnote,.live-candidate dl div,.agent-trace details,.nav-cta,.button-outline){border-color:var(--line)}
+ html[data-theme=dark] :is(.mandi-chart text,.live-price-observations text){fill:var(--muted)}
+ html[data-theme=dark] .comparison-track i{background:#aaca77}
+ html[data-theme=dark] :is(.risk-panel input,.whatif-controls input,.live-check input){accent-color:#b1d578}
+}

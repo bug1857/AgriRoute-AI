@@ -1,0 +1,10 @@
+import {authenticate,body,approvedDecision,workspace,workflow,confirmedDbOffer,WorkflowError} from '@/lib/coordinator';
+import {transaction} from '@/lib/database';
+import {planMandi} from '@/lib/mandi';
+import {mandiData} from '@/lib/mandi-data';
+import {failure,validate} from '@/lib/workflow-error';
+import {object} from '@/lib/live';
+import {farmerRecord} from '@/lib/farmer-record';
+export const runtime='nodejs';export const dynamic='force-dynamic';
+export async function GET(request:Request){try{const user=await authenticate(request),url=new URL(request.url),id=url.searchParams.get('decision');let data:unknown;if(id){const decision=await approvedDecision(user,id);data=user.role==='farmer'||url.searchParams.has('farmer')?farmerRecord(decision):decision;}else data=await workspace(user);return Response.json(data,{headers:{'Cache-Control':'no-store','Vary':'Cookie',...(id&&url.searchParams.has('download')?{'Content-Disposition':'attachment; filename="agriroute-approved-decision.json"'}:{})}});}catch(e){return failure(e);}}
+export async function POST(request:Request){try{const user=await authenticate(request),b=await body(request);if(b.action==='plan'){validate(()=>object(b,['action','lotId','offerId']));if(user.role!=='coordinator')throw new WorkflowError('Coordinator permission required',403);if(typeof b.lotId!=='string'||!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(b.lotId))throw new WorkflowError('Invalid lot ID');const result=await transaction(async c=>{const lot=(await c.query('SELECT * FROM ar_lots WHERE id=$1 AND tenant_id=$2',[b.lotId,user.tenant_id])).rows[0];if(!lot)throw new WorkflowError('Record unavailable',404);const offer=b.offerId?await confirmedDbOffer(c,user,b.offerId):undefined;return {lot,plan:planMandi(mandiData,lot.input,offer)};});return Response.json(result,{headers:{'Cache-Control':'no-store'}});}return Response.json(await workflow(user,b,request.headers.get('Idempotency-Key')),{headers:{'Cache-Control':'no-store'}});}catch(e){return failure(e);}}

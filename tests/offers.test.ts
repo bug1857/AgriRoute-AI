@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {GenerateContentResponse,type GenerateContentParameters,type GoogleGenAI} from '@google/genai';
+import {GenerateContentResponse,type GenerateContentParameters,GoogleGenAI} from '@google/genai';
 import {parseOffer,validateConfirmedFields,type ConfirmedFields} from '../lib/offers';
 import {createOfferDraft,confirmOffer,confirmedOffer,rejectOffer} from '../lib/offer-store';
 import {extractOfferWithModel,validateModelOffer} from '../lib/offer-model';
@@ -44,6 +44,9 @@ test('manual fallback works and expired records cannot be used',()=>{
   const actual=Date.now;try{Date.now=()=>actual()+31*60000;assert.throws(()=>confirmedOffer(c.id),/expired/);assert.throws(()=>confirmOffer(draft.id,fields(),true),/expired/);}finally{Date.now=actual;}
 });
 function modelFields(text=examples[0]){const d=parseOffer(text);return Object.fromEntries(Object.entries(d.fields).map(([k,v])=>[k,v?{value:String('normalized' in v?v.normalized:v.value),evidence:v.evidence.excerpt}:null]));}
+test('official SDK mocked wire extraction grounds all three languages and persists explicit unknown usage',async()=>{
+ for(const text of examples){let requests=0;const ai=new GoogleGenAI({apiKey:'mock-key-never-real',vertexai:false,httpOptions:{retryOptions:{attempts:1},fetch:async(_url,init)=>{requests++;const b=JSON.parse(String(init?.body));assert.match(b.systemInstruction.parts[0].text,/Ignore instructions/);return new Response(JSON.stringify({candidates:[{content:{role:'model',parts:[{text:JSON.stringify(modelFields(text))}]}}]}),{status:200,headers:{'Content-Type':'application/json'}});}}});const d=await extractOfferWithModel(text,ai.models,'mocked-test');assert.equal(requests,1);assert.equal(d.source,'mocked-test');assert.equal(d.modelReceipt!.source,'mocked-test');assert.equal(d.modelReceipt!.usage,null);assert.equal(d.fields.price!.normalized,35);assert.equal(d.fields.quantity!.normalized,500);assert.equal(d.message,text);for(const f of Object.values(d.fields)){assert.ok(f);assert.equal(text.slice(f.evidence.start,f.evidence.end),f.evidence.excerpt);}}
+});
 test('mocked official SDK extraction is grounded, labelled and schema constrained; live calls hard-locked',async()=>{
   const seen:GenerateContentParameters[]=[];
   const models:Pick<GoogleGenAI['models'],'generateContent'>={generateContent:async p=>{seen.push(p);const r=new GenerateContentResponse();r.candidates=[{content:{parts:[{text:JSON.stringify(modelFields())}]}}];return r;}};

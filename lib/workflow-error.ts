@@ -1,0 +1,3 @@
+export class WorkflowError extends Error{constructor(message:string,public status=400){super(message);}}
+export function failure(e:unknown){return Response.json({error:e instanceof WorkflowError?e.message:e instanceof SyntaxError?'Invalid JSON':'Service unavailable; no operation was confirmed'},{status:e instanceof WorkflowError?e.status:e instanceof SyntaxError?400:503,headers:{'Cache-Control':'no-store','Vary':'Cookie'}});}
+export function validate<T>(fn:()=>T):T{try{return fn();}catch(e){if(e instanceof WorkflowError)throw e;throw new WorkflowError(e instanceof Error?e.message:'Invalid input');}}

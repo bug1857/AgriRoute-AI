@@ -35,7 +35,7 @@ export default function LotMap({lots,selectedId,onSelect}: {lots:Lot[];selectedI
       layer=L.layerGroup().addTo(map.current);
       for(const market of geo.markets){
         const node=document.createElement("span");node.className="market-map-label";node.textContent=market.name;
-        L.marker([market.lat,market.lng],{icon:L.divIcon({className:"market-icon",html:node,iconSize:[68,22],iconAnchor:[34,11]})}).addTo(layer);
+        L.marker([market.lat,market.lng],{keyboard:false,icon:L.divIcon({className:"market-icon",html:node,iconSize:[68,22],iconAnchor:[34,11]})}).addTo(layer);
       }
       for(const lot of lots){
         const p=geo.lots.find(p=>p.lot_id===lot.lot_id)!;
@@ -45,7 +45,7 @@ export default function LotMap({lots,selectedId,onSelect}: {lots:Lot[];selectedI
         node.className=`lot-pin ${urgent?"urgent":""} ${lot.lot_id===selectedId?"selected":""}`;
         node.type="button";node.setAttribute("aria-label",`Select lot ${lot.lot_id+1}, ${lot.crop}`);node.setAttribute("aria-pressed",String(lot.lot_id===selectedId));
         node.textContent=String(lot.lot_id+1).padStart(2,"0");node.onclick=()=>select.current(lot.lot_id);
-        L.marker([p.lat,p.lng],{icon:L.divIcon({className:"lot-marker",html:node,iconSize:[30,30],iconAnchor:[15,15]}),zIndexOffset:lot.lot_id===selectedId?1000:0}).addTo(layer);
+        L.marker([p.lat,p.lng],{keyboard:false,icon:L.divIcon({className:"lot-marker",html:node,iconSize:[30,30],iconAnchor:[15,15]}),zIndexOffset:lot.lot_id===selectedId?1000:0}).addTo(layer);
       }
     };
     void render();
