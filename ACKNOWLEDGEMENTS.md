@@ -13,8 +13,10 @@ AgriRoute AI uses open-source software and third-party services.
 Third-party components remain subject to their respective
 licences, attribution requirements and service terms.
 
-The MIT License in this repository applies only to material
-that the project copyright holder has the right to license.
+The MIT License covers only original AgriRoute AI source code developed
+with Codex assistance, to the extent the project copyright holder has
+licensing rights. It does not relicense third-party assets, dependencies,
+services, data or other non-code material. See [LICENSE_SCOPE.md](LICENSE_SCOPE.md).
 
 Synthetic market datasets are generated for demonstration
 and are not official mandi observations.
