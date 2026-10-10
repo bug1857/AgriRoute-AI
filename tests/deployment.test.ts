@@ -42,6 +42,13 @@ test('hosted Gemini remains inaccessible without provider access or local trace 
   assert.equal((await livePost(request(production+'/api/live','POST',production,{}))).status,423);
   assert.equal((await offersPost(request(production+'/api/offers','POST',production,{}))).status,423);
   assert.equal((await agentPost(request(local+'/api/agent','POST',local,{}))).status,403);
+  // Public, synthetic-only market planning must remain functional while volatile/private actions are gated.
+  const synthetic={crop:'tomato',marketId:'all',asOf:'2026-10-10',kg:1000,lifeDays:5,risk:'balanced',holdDays:3,historyDays:30,storageRate:.3,storageCapacityKg:5000,priceChangePercent:0,extraRainDays:0};
+  const mandi=await mandiPost(request(production+'/api/mandi','POST',production,synthetic));
+  assert.equal(mandi.status,200);
+  assert.equal((await mandi.json()).mode,'SYNTHETIC_MANDI');
+  assert.equal((await mandiPost(request(production+'/api/mandi','POST','https://evil.example',synthetic))).status,403);
+
  }finally{
   if(original===undefined)delete process.env.APP_ORIGIN;else process.env.APP_ORIGIN=original;
   if(vercel===undefined)delete process.env.VERCEL;else process.env.VERCEL=vercel;
