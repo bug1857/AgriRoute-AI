@@ -1,0 +1,159 @@
+{
+  "origin": {
+    "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jaipur&count=1&countryCode=IN&language=en&format=json",
+    "retrievedAt": "2026-10-10T13:48:03.579175+00:00",
+    "response": {
+      "results": [
+        {
+          "id": 1269515,
+          "name": "Jaipur",
+          "latitude": 26.91962,
+          "longitude": 75.78781,
+          "elevation": 435.0,
+          "feature_code": "PPLA",
+          "country_code": "IN",
+          "admin1_id": 1258899,
+          "admin2_id": 1269519,
+          "admin3_id": 12680456,
+          "timezone": "Asia/Kolkata",
+          "population": 3046163,
+          "country_id": 1269750,
+          "country": "India",
+          "admin1": "Rajasthan",
+          "admin2": "Jaipur district",
+          "admin3": "Jaipur"
+        }
+      ],
+      "generationtime_ms": 0.73730946
+    }
+  },
+  "chomu": {
+    "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Chomu&count=1&countryCode=IN&language=en&format=json",
+    "retrievedAt": "2026-10-10T13:48:04.275490+00:00",
+    "response": {
+      "results": [
+        {
+          "id": 10166016,
+          "name": "Chomu",
+          "latitude": 27.39913,
+          "longitude": 76.70749,
+          "elevation": 261.0,
+          "feature_code": "PPL",
+          "country_code": "IN",
+          "admin1_id": 1258899,
+          "admin2_id": 1278947,
+          "admin3_id": 12681102,
+          "timezone": "Asia/Kolkata",
+          "country_id": 1269750,
+          "country": "India",
+          "admin1": "Rajasthan",
+          "admin2": "Alwar",
+          "admin3": "Malakhera"
+        }
+      ],
+      "generationtime_ms": 0.20492077
+    }
+  },
+  "muhana": {
+    "sourceUrl": "https://nominatim.openstreetmap.org/search?q=Muhana%20Mandi%20Road%20Sanganer%20Jaipur&format=jsonv2&limit=1&addressdetails=1",
+    "retrievedAt": "2026-10-10T13:48:04.999247+00:00",
+    "response": [
+      {
+        "place_id": 247702738,
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 570133034,
+        "lat": "26.8413758",
+        "lon": "75.7612951",
+        "category": "highway",
+        "type": "secondary",
+        "place_rank": 26,
+        "importance": 0.05339917219806207,
+        "addresstype": "road",
+        "name": "Muhana Mandi Road",
+        "display_name": "Muhana Mandi Road, Jaipur Municipal Corporation, Sanganer Tehsil, Jaipur, Rajasthan, 302029, India",
+        "address": {
+          "road": "Muhana Mandi Road",
+          "city": "Jaipur Municipal Corporation",
+          "county": "Sanganer Tehsil",
+          "state_district": "Jaipur",
+          "state": "Rajasthan",
+          "ISO3166-2-lvl4": "IN-RJ",
+          "postcode": "302029",
+          "country": "India",
+          "country_code": "in"
+        },
+        "boundingbox": [
+          "26.8365571",
+          "26.8460103",
+          "75.7585614",
+          "75.7642990"
+        ]
+      }
+    ]
+  },
+  "chomu-search": {
+    "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Chomu&count=20&countryCode=IN&language=en&format=json",
+    "retrievedAt": "2026-10-10T13:52:16.540371+00:00",
+    "response": {
+      "results": [
+        {
+          "id": 10166016,
+          "name": "Chomu",
+          "latitude": 27.39913,
+          "longitude": 76.70749,
+          "elevation": 261.0,
+          "feature_code": "PPL",
+          "country_code": "IN",
+          "admin1_id": 1258899,
+          "admin2_id": 1278947,
+          "admin3_id": 12681102,
+          "timezone": "Asia/Kolkata",
+          "country_id": 1269750,
+          "country": "India",
+          "admin1": "Rajasthan",
+          "admin2": "Alwar",
+          "admin3": "Malakhera"
+        },
+        {
+          "id": 1274496,
+          "name": "Chaumu",
+          "latitude": 27.16955,
+          "longitude": 75.72226,
+          "elevation": 488.0,
+          "feature_code": "PPL",
+          "country_code": "IN",
+          "admin1_id": 1258899,
+          "admin2_id": 1269519,
+          "admin3_id": 12680451,
+          "timezone": "Asia/Kolkata",
+          "population": 64417,
+          "country_id": 1269750,
+          "country": "India",
+          "admin1": "Rajasthan",
+          "admin2": "Jaipur district",
+          "admin3": "Chomu"
+        },
+        {
+          "id": 10821451,
+          "name": "Chom\u016bn",
+          "latitude": 25.13628,
+          "longitude": 74.84603,
+          "elevation": 373.0,
+          "feature_code": "PPL",
+          "country_code": "IN",
+          "admin1_id": 1258899,
+          "admin2_id": 1274041,
+          "admin3_id": 12681054,
+          "timezone": "Asia/Kolkata",
+          "country_id": 1269750,
+          "country": "India",
+          "admin1": "Rajasthan",
+          "admin2": "Chittorgarh",
+          "admin3": "Begun"
+        }
+      ],
+      "generationtime_ms": 0.28705597
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "source": "supply-chain-ai-3-prototypes.docx \u00b7 Project 1, Step 1",
+  "seed": 42,
+  "numpy_version": "2.3.5",
+  "sha256": "a6df67a925f9e4de968c9baa455bcad67baa47e46b1fffca210c7d6c07961659",
+  "total_kg": 97509,
+  "glut_start_days": {
+    "market_0": 73,
+    "market_1": 32,
+    "market_2": 47,
+    "market_3": 23,
+    "market_4": 92
+  },
+  "synthetic": true
+}

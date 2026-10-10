@@ -1,0 +1,11 @@
+{
+  "model": "gemini-3.1-flash-lite",
+  "checkedAt": "REPLACE_WITH_CURRENT_UTC_TIME_AFTER_VERIFICATION",
+  "tier": "free",
+  "billingDisabled": false,
+  "requestsPerMinute": 0,
+  "requestsPerDay": 0,
+  "observedPeakRequestsPerDay": 0,
+  "tokensPerMinute": 0,
+  "evidence": "Replace with a description of the verified AI Studio tier, billing and quota evidence. Save verified values in private/free-tier-verification.json. This template deliberately does not enable calls."
+}

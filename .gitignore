@@ -1,0 +1,19 @@
+node_modules/
+.next/
+.env*
+!.env.example
+artifacts/
+private/
+*.tsbuildinfo
+
+# Additional Next.js and local files
+out/
+coverage/
+.vercel/
+.DS_Store
+*.log
+*.sqlite
+*.sqlite3
+*.db
+playwright-report/
+test-results/

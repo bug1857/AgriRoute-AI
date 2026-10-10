@@ -1,0 +1,5748 @@
+{
+  "experimentId": "6a1cacf24f72c39a0bc3acab281a896b3343277ff5658aed75a42c06031df5d9",
+  "version": "agriroute.simulation.v1",
+  "synthetic": true,
+  "days": 30,
+  "risk": "balanced",
+  "rules": {
+    "horizonDays": 30,
+    "risk": "balanced",
+    "ordering": "harvest_day then lot_id; existing dispatches/releases before new harvests",
+    "settlement": "floor(actual arrival day), arrival must be before day 30",
+    "spoilage": "cumulative linear exposure against each day's original heat-adjusted life; cold rate 0.25; cap at initial kg",
+    "transport": "origin-region dispatch-day rain adds 24h once; origin-region weather along the journey",
+    "storage": "reserve original kg on [harvest, dispatch); bill reserved original kg until departure/expiry, release on observed expiry",
+    "baseline": "nearest-market harvest-day dispatch; ignores soft risk margin, cannot sell spoiled kg",
+    "missingPolicyC": "no invented action or full-cohort totals; resolved-lot simulation is an isolated preview"
+  },
+  "identifiers": {
+    "fixtureSha256": "a6df67a925f9e4de968c9baa455bcad67baa47e46b1fffca210c7d6c07961659",
+    "geographySha256": "c395ea4f1afbedb4735e7ba82fe1d5e74feb493155a4da21cdfb80b82c84a990",
+    "plannerSha256": "8d8d1390209f40eaec8685eb7e335ff86c57a7fb4bfaedcda4729f232b0446b4",
+    "simulatorSha256": "9be63dddd26aba5d27018c0f10241fe8f3b7b5a4b0c58733555175c4ca992428",
+    "replayAdapterSha256": "bf3a48f9bdacbcfd2b2870bfddccaca74982cbabe5037724ef8ed55a6206888e"
+  },
+  "A": {
+    "id": "A",
+    "name": "Nearest-market immediate dispatch",
+    "status": "COMPLETE",
+    "cohortLots": 30,
+    "evaluatedLots": 30,
+    "unevaluatedKg": 0,
+    "classification": {
+      "baseline": 30
+    },
+    "totals": {
+      "initialKg": 97509,
+      "soldKg": 85250.33347011179,
+      "spoiledKg": 12258.666529888227,
+      "unsoldKg": 0,
+      "gross": 2997542.35,
+      "transport": 68289.12,
+      "storage": 0,
+      "net": 2929253.23,
+      "massErrorKg": -1.2732925824820995e-11
+    },
+    "previewTotals": null,
+    "lots": [
+      {
+        "lotId": 0,
+        "initialKg": 4084,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "sell_now",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.1854511873597335,
+          "distanceKm": 18.033139865344125,
+          "transitHours": 4.450828496633603,
+          "expectedPrice": 33.74742633644158,
+          "saleableKg": 3765.5469943352387,
+          "spoiledKg": 318.45300566476135,
+          "remainingHours": 52.62881357585138,
+          "gross": 127077.52,
+          "transport": 2577.66,
+          "storage": 0,
+          "net": 124499.86,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.1854511873597335,
+          "settlementDay": 7,
+          "settlementPrice": 33.74742633644158,
+          "soldKg": 3765.546994335238,
+          "spoiledKg": 318.45300566476186,
+          "unsoldKg": 0,
+          "gross": 127077.52,
+          "transport": 2577.66,
+          "storage": 0,
+          "net": 124499.86
+        }
+      },
+      {
+        "lotId": 1,
+        "initialKg": 1202,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_3:0"
+        },
+        "predicted": {
+          "id": "market_3:0",
+          "action": "sell_now",
+          "market": "market_3",
+          "marketName": "Market D",
+          "storeDays": 0,
+          "dispatchDay": 2,
+          "arrivalDay": 2.1866932554509706,
+          "distanceKm": 19.2255252329319,
+          "transitHours": 4.480638130823298,
+          "expectedPrice": 31.69302686176673,
+          "saleableKg": 1133.4185923960308,
+          "spoiledKg": 68.58140760396918,
+          "remainingHours": 74.04978609654263,
+          "gross": 35921.47,
+          "transport": 808.82,
+          "storage": 0,
+          "net": 35112.65,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 2,
+          "arrivalDay": 2.1866932554509706,
+          "settlementDay": 2,
+          "settlementPrice": 31.69302686176673,
+          "soldKg": 1133.4185923960308,
+          "spoiledKg": 68.5814076039692,
+          "unsoldKg": 0,
+          "gross": 35921.47,
+          "transport": 808.82,
+          "storage": 0,
+          "net": 35112.65
+        }
+      },
+      {
+        "lotId": 2,
+        "initialKg": 2566,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 4,
+          "arrivalDay": 4.189414109597459,
+          "distanceKm": 21.837545213560702,
+          "transitHours": 4.545938630339018,
+          "expectedPrice": 33.0592707286483,
+          "saleableKg": 2423.7513721255054,
+          "spoiledKg": 142.24862787449456,
+          "remainingHours": 77.457513351931,
+          "gross": 80127.45,
+          "transport": 1961.23,
+          "storage": 0,
+          "net": 78166.22,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 4,
+          "arrivalDay": 4.189414109597459,
+          "settlementDay": 4,
+          "settlementPrice": 33.0592707286483,
+          "soldKg": 2423.7513721255054,
+          "spoiledKg": 142.24862787449484,
+          "unsoldKg": 0,
+          "gross": 80127.45,
+          "transport": 1961.23,
+          "storage": 0,
+          "net": 78166.22
+        }
+      },
+      {
+        "lotId": 3,
+        "initialKg": 3686,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 5,
+          "arrivalDay": 6.191544258782318,
+          "distanceKm": 23.882488431024818,
+          "transitHours": 28.59706221077562,
+          "expectedPrice": 35.864582853177325,
+          "saleableKg": 3544.753117626841,
+          "spoiledKg": 141.24688237315922,
+          "remainingHours": 717.6761973323271,
+          "gross": 127131.09,
+          "transport": 3081.08,
+          "storage": 0,
+          "net": 124050.01,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 5,
+          "arrivalDay": 6.191544258782318,
+          "settlementDay": 6,
+          "settlementPrice": 34.233193461391956,
+          "soldKg": 3539.3343209868412,
+          "spoiledKg": 146.66567901315872,
+          "unsoldKg": 0,
+          "gross": 121162.72,
+          "transport": 3081.08,
+          "storage": 0,
+          "net": 118081.64
+        }
+      },
+      {
+        "lotId": 4,
+        "initialKg": 3748,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "sell_now",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 5,
+          "arrivalDay": 5.188433510674966,
+          "distanceKm": 20.89617024796731,
+          "transitHours": 4.522404256199183,
+          "expectedPrice": 31.19287221561756,
+          "saleableKg": 3685.2366695419864,
+          "spoiledKg": 62.76333045801357,
+          "remainingHours": 265.5392866792968,
+          "gross": 114953.12,
+          "transport": 2741.16,
+          "storage": 0,
+          "net": 112211.96,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 5,
+          "arrivalDay": 5.188433510674966,
+          "settlementDay": 5,
+          "settlementPrice": 31.19287221561756,
+          "soldKg": 3685.2366695419864,
+          "spoiledKg": 62.76333045801392,
+          "unsoldKg": 0,
+          "gross": 114953.12,
+          "transport": 2741.16,
+          "storage": 0,
+          "net": 112211.96
+        }
+      },
+      {
+        "lotId": 5,
+        "initialKg": 4964,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 0,
+          "arrivalDay": 0.19566967667784396,
+          "distanceKm": 27.842889610730214,
+          "transitHours": 4.696072240268255,
+          "expectedPrice": 34.324779710620945,
+          "saleableKg": 4929.20764961268,
+          "spoiledKg": 34.79235038731986,
+          "remainingHours": 665.3162247498026,
+          "gross": 169193.97,
+          "transport": 4837.42,
+          "storage": 0,
+          "net": 164356.55,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 0,
+          "arrivalDay": 0.19566967667784396,
+          "settlementDay": 0,
+          "settlementPrice": 34.324779710620945,
+          "soldKg": 4929.20764961268,
+          "spoiledKg": 34.79235038731994,
+          "unsoldKg": 0,
+          "gross": 169193.97,
+          "transport": 4837.42,
+          "storage": 0,
+          "net": 164356.55
+        }
+      },
+      {
+        "lotId": 6,
+        "initialKg": 2861,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.18348029403431,
+          "distanceKm": 16.14108227293678,
+          "transitHours": 4.403527056823419,
+          "expectedPrice": 39.274612680329945,
+          "saleableKg": 2820.181745017289,
+          "spoiledKg": 40.818254982711096,
+          "remainingHours": 304.24491749103845,
+          "gross": 110761.55,
+          "transport": 1616.29,
+          "storage": 0,
+          "net": 109145.26,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.18348029403431,
+          "settlementDay": 8,
+          "settlementPrice": 39.274612680329945,
+          "soldKg": 2820.181745017289,
+          "spoiledKg": 40.818254982711146,
+          "unsoldKg": 0,
+          "gross": 110761.55,
+          "transport": 1616.29,
+          "storage": 0,
+          "net": 109145.26
+        }
+      },
+      {
+        "lotId": 7,
+        "initialKg": 3253,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 9,
+          "arrivalDay": 9.190804546122145,
+          "distanceKm": 23.172364277259128,
+          "transitHours": 4.579309106931478,
+          "expectedPrice": 37.80198772039323,
+          "saleableKg": 2928.747531438095,
+          "spoiledKg": 324.25246856190506,
+          "remainingHours": 41.36172132196752,
+          "gross": 110712.48,
+          "transport": 2638.29,
+          "storage": 0,
+          "net": 108074.19,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 9,
+          "arrivalDay": 9.190804546122145,
+          "settlementDay": 9,
+          "settlementPrice": 37.80198772039323,
+          "soldKg": 2928.747531438095,
+          "spoiledKg": 324.25246856190495,
+          "unsoldKg": 0,
+          "gross": 110712.48,
+          "transport": 2638.29,
+          "storage": 0,
+          "net": 108074.19
+        }
+      },
+      {
+        "lotId": 8,
+        "initialKg": 4881,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 2,
+          "arrivalDay": 3.183824793164128,
+          "distanceKm": 16.47180143756298,
+          "transitHours": 28.411795035939075,
+          "expectedPrice": 39.89957589364434,
+          "saleableKg": 4691.425502337694,
+          "spoiledKg": 189.57449766230638,
+          "remainingHours": 703.1104997900704,
+          "gross": 187185.89,
+          "transport": 2813.96,
+          "storage": 0,
+          "net": 184371.93,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 2,
+          "arrivalDay": 3.183824793164128,
+          "settlementDay": 3,
+          "settlementPrice": 34.56983269805787,
+          "soldKg": 4686.232270704178,
+          "spoiledKg": 194.76772929582242,
+          "unsoldKg": 0,
+          "gross": 162002.27,
+          "transport": 2813.96,
+          "storage": 0,
+          "net": 159188.31
+        }
+      },
+      {
+        "lotId": 9,
+        "initialKg": 4924,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_3:0"
+        },
+        "predicted": {
+          "id": "market_3:0",
+          "action": "sell_now",
+          "market": "market_3",
+          "marketName": "Market D",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 9.190247417475572,
+          "distanceKm": 22.637520776548392,
+          "transitHours": 28.56593801941371,
+          "expectedPrice": 25.948554234969983,
+          "saleableKg": 40.018096958573246,
+          "spoiledKg": 4883.981903041426,
+          "remainingHours": 0.23406198058629363,
+          "gross": 1038.41,
+          "transport": 3901.35,
+          "storage": 0,
+          "net": -2862.94,
+          "eligible": false,
+          "hardReasons": [],
+          "reasons": [
+            "Needs 24h usable-life margin; 0.2h remains"
+          ]
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 9.190247417475572,
+          "settlementDay": 9,
+          "settlementPrice": 30.643038817240114,
+          "soldKg": 486.29783912737275,
+          "spoiledKg": 4437.702160872627,
+          "unsoldKg": 0,
+          "gross": 14901.64,
+          "transport": 3901.35,
+          "storage": 0,
+          "net": 11000.29
+        }
+      },
+      {
+        "lotId": 10,
+        "initialKg": 3233,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 4,
+          "arrivalDay": 5.188527661778321,
+          "distanceKm": 20.986555307187825,
+          "transitHours": 28.524663882679697,
+          "expectedPrice": 36.381636182817296,
+          "saleableKg": 1472.2545410914108,
+          "spoiledKg": 1760.7454589085892,
+          "remainingHours": 23.851014763038258,
+          "gross": 53563.03,
+          "transport": 2374.73,
+          "storage": 0,
+          "net": 51188.3,
+          "eligible": false,
+          "hardReasons": [],
+          "reasons": [
+            "Needs 24h usable-life margin; 23.9h remains"
+          ]
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 4,
+          "arrivalDay": 5.188527661778321,
+          "settlementDay": 5,
+          "settlementPrice": 32.67084286793732,
+          "soldKg": 1594.7352810092514,
+          "spoiledKg": 1638.2647189907486,
+          "unsoldKg": 0,
+          "gross": 52101.35,
+          "transport": 2374.73,
+          "storage": 0,
+          "net": 49726.62
+        }
+      },
+      {
+        "lotId": 11,
+        "initialKg": 559,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.182259280899304,
+          "distanceKm": 14.968909663331432,
+          "transitHours": 4.374222741583286,
+          "expectedPrice": 40.38250072804393,
+          "saleableKg": 535.026007736145,
+          "spoiledKg": 23.973992263855052,
+          "remainingHours": 97.6192410767732,
+          "gross": 21605.69,
+          "transport": 292.87,
+          "storage": 0,
+          "net": 21312.82,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.182259280899304,
+          "settlementDay": 8,
+          "settlementPrice": 40.38250072804393,
+          "soldKg": 535.0260077361448,
+          "spoiledKg": 23.973992263855084,
+          "unsoldKg": 0,
+          "gross": 21605.69,
+          "transport": 292.87,
+          "storage": 0,
+          "net": 21312.82
+        }
+      },
+      {
+        "lotId": 12,
+        "initialKg": 4137,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_2:0"
+        },
+        "predicted": {
+          "id": "market_2:0",
+          "action": "sell_now",
+          "market": "market_2",
+          "marketName": "Market C",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.187811706466901,
+          "distanceKm": 20.299238208225482,
+          "transitHours": 4.507480955205637,
+          "expectedPrice": 35.28380148554719,
+          "saleableKg": 4074.8135565613147,
+          "spoiledKg": 62.186443438685274,
+          "remainingHours": 295.35608545170265,
+          "gross": 143774.91,
+          "transport": 2939.23,
+          "storage": 0,
+          "net": 140835.68,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.187811706466901,
+          "settlementDay": 8,
+          "settlementPrice": 35.28380148554719,
+          "soldKg": 4074.8135565613147,
+          "spoiledKg": 62.186443438685316,
+          "unsoldKg": 0,
+          "gross": 143774.91,
+          "transport": 2939.23,
+          "storage": 0,
+          "net": 140835.68
+        }
+      },
+      {
+        "lotId": 13,
+        "initialKg": 1539,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 6,
+          "arrivalDay": 6.185953042853112,
+          "distanceKm": 18.514921138986967,
+          "transitHours": 4.462873028474674,
+          "expectedPrice": 34.81686154049268,
+          "saleableKg": 1426.7262979847094,
+          "spoiledKg": 112.27370201529061,
+          "remainingHours": 56.71228613646596,
+          "gross": 49674.13,
+          "transport": 997.31,
+          "storage": 0,
+          "net": 48676.82,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 6,
+          "arrivalDay": 6.185953042853112,
+          "settlementDay": 6,
+          "settlementPrice": 34.81686154049268,
+          "soldKg": 1426.7262979847092,
+          "spoiledKg": 112.27370201529088,
+          "unsoldKg": 0,
+          "gross": 49674.13,
+          "transport": 997.31,
+          "storage": 0,
+          "net": 48676.82
+        }
+      },
+      {
+        "lotId": 14,
+        "initialKg": 4249,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_2:0"
+        },
+        "predicted": {
+          "id": "market_2:0",
+          "action": "sell_now",
+          "market": "market_2",
+          "marketName": "Market C",
+          "storeDays": 0,
+          "dispatchDay": 2,
+          "arrivalDay": 2.188729620697128,
+          "distanceKm": 21.180435869242864,
+          "transitHours": 4.529510896731072,
+          "expectedPrice": 38.18795544953987,
+          "saleableKg": 3941.7357053320507,
+          "spoiledKg": 307.26429466794934,
+          "remainingHours": 58.1067671680819,
+          "gross": 150526.83,
+          "transport": 3149.85,
+          "storage": 0,
+          "net": 147376.98,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 2,
+          "arrivalDay": 2.188729620697128,
+          "settlementDay": 2,
+          "settlementPrice": 38.18795544953987,
+          "soldKg": 3941.7357053320507,
+          "spoiledKg": 307.2642946679494,
+          "unsoldKg": 0,
+          "gross": 150526.83,
+          "transport": 3149.85,
+          "storage": 0,
+          "net": 147376.98
+        }
+      },
+      {
+        "lotId": 15,
+        "initialKg": 1664,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 8.190054813278758,
+          "distanceKm": 22.452620747608265,
+          "transitHours": 28.561315518690208,
+          "expectedPrice": 35.20032556939723,
+          "saleableKg": 1218.6768082888707,
+          "spoiledKg": 445.3231917111293,
+          "remainingHours": 78.16123993701021,
+          "gross": 42897.82,
+          "transport": 1307.64,
+          "storage": 0,
+          "net": 41590.18,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 8.190054813278758,
+          "settlementDay": 8,
+          "settlementPrice": 40.38250072804393,
+          "soldKg": 1200.4958854489191,
+          "spoiledKg": 463.50411455108105,
+          "unsoldKg": 0,
+          "gross": 48479.03,
+          "transport": 1307.64,
+          "storage": 0,
+          "net": 47171.39
+        }
+      },
+      {
+        "lotId": 16,
+        "initialKg": 2413,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "sell_now",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 5,
+          "arrivalDay": 5.185896691939211,
+          "distanceKm": 18.460824261642447,
+          "transitHours": 4.461520606541061,
+          "expectedPrice": 31.19287221561756,
+          "saleableKg": 2373.136333345573,
+          "spoiledKg": 39.86366665442711,
+          "remainingHours": 265.6001703289549,
+          "gross": 74024.94,
+          "transport": 1559.11,
+          "storage": 0,
+          "net": 72465.83,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 5,
+          "arrivalDay": 5.185896691939211,
+          "settlementDay": 5,
+          "settlementPrice": 31.19287221561756,
+          "soldKg": 2373.1363333455724,
+          "spoiledKg": 39.863666654427384,
+          "unsoldKg": 0,
+          "gross": 74024.94,
+          "transport": 1559.11,
+          "storage": 0,
+          "net": 72465.83
+        }
+      },
+      {
+        "lotId": 17,
+        "initialKg": 1331,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_2:0"
+        },
+        "predicted": {
+          "id": "market_2:0",
+          "action": "sell_now",
+          "market": "market_2",
+          "marketName": "Market C",
+          "storeDays": 0,
+          "dispatchDay": 1,
+          "arrivalDay": 1.1790430927422852,
+          "distanceKm": 11.881369032593913,
+          "transitHours": 4.297034225814848,
+          "expectedPrice": 36.54263827284653,
+          "saleableKg": 1311.1854576884177,
+          "spoiledKg": 19.814542311582272,
+          "remainingHours": 284.34715773295574,
+          "gross": 47914.18,
+          "transport": 553.49,
+          "storage": 0,
+          "net": 47360.69,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 1,
+          "arrivalDay": 1.1790430927422852,
+          "settlementDay": 1,
+          "settlementPrice": 36.54263827284653,
+          "soldKg": 1311.1854576884177,
+          "spoiledKg": 19.814542311582358,
+          "unsoldKg": 0,
+          "gross": 47914.18,
+          "transport": 553.49,
+          "storage": 0,
+          "net": 47360.69
+        }
+      },
+      {
+        "lotId": 18,
+        "initialKg": 4727,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_2:0"
+        },
+        "predicted": {
+          "id": "market_2:0",
+          "action": "sell_now",
+          "market": "market_2",
+          "marketName": "Market C",
+          "storeDays": 0,
+          "dispatchDay": 3,
+          "arrivalDay": 3.18725977952378,
+          "distanceKm": 19.76938834282861,
+          "transitHours": 4.4942347085707155,
+          "expectedPrice": 34.867457034734144,
+          "saleableKg": 4670.052935655868,
+          "spoiledKg": 56.94706434413183,
+          "remainingHours": 368.5583135147176,
+          "gross": 162832.87,
+          "transport": 3270.75,
+          "storage": 0,
+          "net": 159562.12,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 3,
+          "arrivalDay": 3.18725977952378,
+          "settlementDay": 3,
+          "settlementPrice": 34.867457034734144,
+          "soldKg": 4670.052935655868,
+          "spoiledKg": 56.94706434413136,
+          "unsoldKg": 0,
+          "gross": 162832.87,
+          "transport": 3270.75,
+          "storage": 0,
+          "net": 159562.12
+        }
+      },
+      {
+        "lotId": 19,
+        "initialKg": 4648,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "sell_now",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.18432918289069,
+          "distanceKm": 16.95601557506261,
+          "transitHours": 4.423900389376565,
+          "expectedPrice": 33.74742633644158,
+          "saleableKg": 4256.26859156681,
+          "spoiledKg": 391.73140843319015,
+          "remainingHours": 48.066884283890715,
+          "gross": 143638.11,
+          "transport": 2758.4,
+          "storage": 0,
+          "net": 140879.71,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.18432918289069,
+          "settlementDay": 7,
+          "settlementPrice": 33.74742633644158,
+          "soldKg": 4256.268591566811,
+          "spoiledKg": 391.7314084331894,
+          "unsoldKg": 0,
+          "gross": 143638.11,
+          "transport": 2758.4,
+          "storage": 0,
+          "net": 140879.71
+        }
+      },
+      {
+        "lotId": 20,
+        "initialKg": 2843,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.189692677150764,
+          "distanceKm": 22.10497006473355,
+          "transitHours": 4.552624251618338,
+          "expectedPrice": 37.364052079306376,
+          "saleableKg": 2616.2447107689536,
+          "spoiledKg": 226.7552892310464,
+          "remainingHours": 52.52701782086665,
+          "gross": 97753.5,
+          "transport": 2199.56,
+          "storage": 0,
+          "net": 95553.94,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.189692677150764,
+          "settlementDay": 7,
+          "settlementPrice": 37.364052079306376,
+          "soldKg": 2616.2447107689536,
+          "spoiledKg": 226.7552892310461,
+          "unsoldKg": 0,
+          "gross": 97753.5,
+          "transport": 2199.56,
+          "storage": 0,
+          "net": 95553.94
+        }
+      },
+      {
+        "lotId": 21,
+        "initialKg": 3862,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 4,
+          "arrivalDay": 4.187724745698132,
+          "distanceKm": 20.21575587020669,
+          "transitHours": 4.505393896755168,
+          "expectedPrice": 33.0592707286483,
+          "saleableKg": 3830.1723802925444,
+          "spoiledKg": 31.827619707455597,
+          "remainingHours": 542.184285985045,
+          "gross": 126622.71,
+          "transport": 2732.56,
+          "storage": 0,
+          "net": 123890.15,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 4,
+          "arrivalDay": 4.187724745698132,
+          "settlementDay": 4,
+          "settlementPrice": 33.0592707286483,
+          "soldKg": 3830.1723802925444,
+          "spoiledKg": 31.82761970745537,
+          "unsoldKg": 0,
+          "gross": 126622.71,
+          "transport": 2732.56,
+          "storage": 0,
+          "net": 123890.15
+        }
+      },
+      {
+        "lotId": 22,
+        "initialKg": 4843,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "sell_now",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.186449057512448,
+          "distanceKm": 18.991095211950164,
+          "transitHours": 4.474777380298754,
+          "expectedPrice": 40.89741876266336,
+          "saleableKg": 4772.786307899483,
+          "spoiledKg": 70.21369210051671,
+          "remainingHours": 304.17366716756317,
+          "gross": 195194.64,
+          "transport": 3219.09,
+          "storage": 0,
+          "net": 191975.55,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.186449057512448,
+          "settlementDay": 8,
+          "settlementPrice": 40.89741876266336,
+          "soldKg": 4772.786307899483,
+          "spoiledKg": 70.21369210051623,
+          "unsoldKg": 0,
+          "gross": 195194.64,
+          "transport": 3219.09,
+          "storage": 0,
+          "net": 191975.55
+        }
+      },
+      {
+        "lotId": 23,
+        "initialKg": 1243,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_3:0"
+        },
+        "predicted": {
+          "id": "market_3:0",
+          "action": "sell_now",
+          "market": "market_3",
+          "marketName": "Market D",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 9.188109030226968,
+          "distanceKm": 20.58466901788906,
+          "transitHours": 28.514616725447226,
+          "expectedPrice": 25.948554234969983,
+          "saleableKg": 12.317062856566166,
+          "spoiledKg": 1230.682937143434,
+          "remainingHours": 0.28538327455278006,
+          "gross": 319.61,
+          "transport": 895.54,
+          "storage": 0,
+          "net": -575.93,
+          "eligible": false,
+          "hardReasons": [],
+          "reasons": [
+            "Needs 24h usable-life margin; 0.3h remains"
+          ]
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 9.188109030226968,
+          "settlementDay": 9,
+          "settlementPrice": 30.643038817240114,
+          "soldKg": 123.7083268956204,
+          "spoiledKg": 1119.2916731043797,
+          "unsoldKg": 0,
+          "gross": 3790.8,
+          "transport": 895.54,
+          "storage": 0,
+          "net": 2895.26
+        }
+      },
+      {
+        "lotId": 24,
+        "initialKg": 3975,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 8.188937177183837,
+          "distanceKm": 21.379690096482594,
+          "transitHours": 28.534492252412065,
+          "expectedPrice": 35.20032556939723,
+          "saleableKg": 2912.2011734630973,
+          "spoiledKg": 1062.7988265369027,
+          "remainingHours": 78.18806320328835,
+          "gross": 102510.43,
+          "transport": 2974.45,
+          "storage": 0,
+          "net": 99535.98,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 8.188937177183837,
+          "settlementDay": 8,
+          "settlementPrice": 40.38250072804393,
+          "soldKg": 2869.0255831331397,
+          "spoiledKg": 1105.9744168668606,
+          "unsoldKg": 0,
+          "gross": 115858.43,
+          "transport": 2974.45,
+          "storage": 0,
+          "net": 112883.98
+        }
+      },
+      {
+        "lotId": 25,
+        "initialKg": 4169,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 0,
+          "arrivalDay": 0.18576104774231048,
+          "distanceKm": 18.330605832618037,
+          "transitHours": 4.458265145815451,
+          "expectedPrice": 34.324779710620945,
+          "saleableKg": 3984.0630222121627,
+          "spoiledKg": 184.93697778783735,
+          "remainingHours": 96.04357940269517,
+          "gross": 136752.09,
+          "transport": 2674.71,
+          "storage": 0,
+          "net": 134077.38,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 0,
+          "arrivalDay": 0.18576104774231048,
+          "settlementDay": 0,
+          "settlementPrice": 34.324779710620945,
+          "soldKg": 3984.0630222121627,
+          "spoiledKg": 184.93697778783763,
+          "unsoldKg": 0,
+          "gross": 136752.09,
+          "transport": 2674.71,
+          "storage": 0,
+          "net": 134077.38
+        }
+      },
+      {
+        "lotId": 26,
+        "initialKg": 4055,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_2:0"
+        },
+        "predicted": {
+          "id": "market_2:0",
+          "action": "sell_now",
+          "market": "market_2",
+          "marketName": "Market C",
+          "storeDays": 0,
+          "dispatchDay": 4,
+          "arrivalDay": 4.185844089592698,
+          "distanceKm": 18.410326008990403,
+          "transitHours": 4.46025815022476,
+          "expectedPrice": 32.88053606334246,
+          "saleableKg": 3753.5864214384396,
+          "spoiledKg": 301.41357856156037,
+          "remainingHours": 55.544824850597834,
+          "gross": 123419.93,
+          "transport": 2612.89,
+          "storage": 0,
+          "net": 120807.04,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 4,
+          "arrivalDay": 4.185844089592698,
+          "settlementDay": 4,
+          "settlementPrice": 32.88053606334246,
+          "soldKg": 3753.58642143844,
+          "spoiledKg": 301.4135785615601,
+          "unsoldKg": 0,
+          "gross": 123419.93,
+          "transport": 2612.89,
+          "storage": 0,
+          "net": 120807.04
+        }
+      },
+      {
+        "lotId": 27,
+        "initialKg": 3429,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 6,
+          "arrivalDay": 6.185363983293006,
+          "distanceKm": 17.949423961285873,
+          "transitHours": 4.448735599032147,
+          "expectedPrice": 34.233193461391956,
+          "saleableKg": 3260.203188707341,
+          "spoiledKg": 168.79681129265919,
+          "remainingHours": 85.9245022142856,
+          "gross": 111607.17,
+          "transport": 2154.2,
+          "storage": 0,
+          "net": 109452.97,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 6,
+          "arrivalDay": 6.185363983293006,
+          "settlementDay": 6,
+          "settlementPrice": 34.233193461391956,
+          "soldKg": 3260.203188707341,
+          "spoiledKg": 168.7968112926592,
+          "unsoldKg": 0,
+          "gross": 111607.17,
+          "transport": 2154.2,
+          "storage": 0,
+          "net": 109452.97
+        }
+      },
+      {
+        "lotId": 28,
+        "initialKg": 2522,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 0,
+          "arrivalDay": 0.18589329409193792,
+          "distanceKm": 18.457562328260394,
+          "transitHours": 4.46143905820651,
+          "expectedPrice": 34.324779710620945,
+          "saleableKg": 2505.2066525415376,
+          "spoiledKg": 16.79334745846245,
+          "remainingHours": 665.5508579318642,
+          "gross": 85990.67,
+          "transport": 1629.25,
+          "storage": 0,
+          "net": 84361.42,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 0,
+          "arrivalDay": 0.18589329409193792,
+          "settlementDay": 0,
+          "settlementPrice": 34.324779710620945,
+          "soldKg": 2505.2066525415376,
+          "spoiledKg": 16.793347458462485,
+          "unsoldKg": 0,
+          "gross": 85990.67,
+          "transport": 1629.25,
+          "storage": 0,
+          "net": 84361.42
+        }
+      },
+      {
+        "lotId": 29,
+        "initialKg": 1899,
+        "decision": {
+          "kind": "baseline",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "sell_now",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.182593438399543,
+          "distanceKm": 15.289700863561277,
+          "transitHours": 4.382242521589032,
+          "expectedPrice": 33.74742633644158,
+          "saleableKg": 1753.2058386082786,
+          "spoiledKg": 145.79416139172145,
+          "remainingHours": 52.69739955089595,
+          "gross": 59166.18,
+          "transport": 1016.23,
+          "storage": 0,
+          "net": 58149.95,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.182593438399543,
+          "settlementDay": 7,
+          "settlementPrice": 33.74742633644158,
+          "soldKg": 1753.2058386082786,
+          "spoiledKg": 145.79416139172156,
+          "unsoldKg": 0,
+          "gross": 59166.18,
+          "transport": 1016.23,
+          "storage": 0,
+          "net": 58149.95
+        }
+      }
+    ],
+    "ledger": [
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "harvest",
+        "kg": 4964
+      },
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "dispatch",
+        "kg": 4964,
+        "rupees": 4837.42,
+        "detail": "market_4; arrival 0.19566967667784396; dispatch rain false"
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "harvest",
+        "kg": 4169
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "dispatch",
+        "kg": 4169,
+        "rupees": 2674.71,
+        "detail": "market_4; arrival 0.18576104774231048; dispatch rain false"
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "harvest",
+        "kg": 2522
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "dispatch",
+        "kg": 2522,
+        "rupees": 1629.25,
+        "detail": "market_4; arrival 0.18589329409193792; dispatch rain false"
+      },
+      {
+        "time": 0.18576104774231048,
+        "lotId": 25,
+        "type": "spoilage",
+        "kg": 184.93697778783763,
+        "detail": "observed day 0; 28.020705239686762C; transit"
+      },
+      {
+        "time": 0.18576104774231048,
+        "lotId": 25,
+        "type": "settlement",
+        "kg": 3984.0630222121627,
+        "rupees": 136752.09,
+        "detail": "day 0; 34.324779710620945/kg"
+      },
+      {
+        "time": 0.18589329409193792,
+        "lotId": 28,
+        "type": "spoilage",
+        "kg": 16.793347458462485,
+        "detail": "observed day 0; 28.020705239686762C; transit"
+      },
+      {
+        "time": 0.18589329409193792,
+        "lotId": 28,
+        "type": "settlement",
+        "kg": 2505.2066525415376,
+        "rupees": 85990.67,
+        "detail": "day 0; 34.324779710620945/kg"
+      },
+      {
+        "time": 0.19566967667784396,
+        "lotId": 5,
+        "type": "spoilage",
+        "kg": 34.79235038731994,
+        "detail": "observed day 0; 28.020705239686762C; transit"
+      },
+      {
+        "time": 0.19566967667784396,
+        "lotId": 5,
+        "type": "settlement",
+        "kg": 4929.20764961268,
+        "rupees": 169193.97,
+        "detail": "day 0; 34.324779710620945/kg"
+      },
+      {
+        "time": 1,
+        "lotId": 17,
+        "type": "harvest",
+        "kg": 1331
+      },
+      {
+        "time": 1,
+        "lotId": 17,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_2:0\"}"
+      },
+      {
+        "time": 1,
+        "lotId": 17,
+        "type": "dispatch",
+        "kg": 1331,
+        "rupees": 553.49,
+        "detail": "market_2; arrival 1.1790430927422852; dispatch rain false"
+      },
+      {
+        "time": 1.1790430927422852,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 19.814542311582358,
+        "detail": "observed day 1; 31.99328966709614C; transit"
+      },
+      {
+        "time": 1.1790430927422852,
+        "lotId": 17,
+        "type": "settlement",
+        "kg": 1311.1854576884177,
+        "rupees": 47914.18,
+        "detail": "day 1; 36.54263827284653/kg"
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "harvest",
+        "kg": 1202
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_3:0\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "dispatch",
+        "kg": 1202,
+        "rupees": 808.82,
+        "detail": "market_3; arrival 2.1866932554509706; dispatch rain false"
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "harvest",
+        "kg": 4881
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "dispatch",
+        "kg": 4881,
+        "rupees": 2813.96,
+        "detail": "market_4; arrival 3.183824793164128; dispatch rain true"
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "harvest",
+        "kg": 4249
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_2:0\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "dispatch",
+        "kg": 4249,
+        "rupees": 3149.85,
+        "detail": "market_2; arrival 2.188729620697128; dispatch rain false"
+      },
+      {
+        "time": 2.1866932554509706,
+        "lotId": 1,
+        "type": "spoilage",
+        "kg": 68.5814076039692,
+        "detail": "observed day 2; 28.45579798105284C; transit"
+      },
+      {
+        "time": 2.1866932554509706,
+        "lotId": 1,
+        "type": "settlement",
+        "kg": 1133.4185923960308,
+        "rupees": 35921.47,
+        "detail": "day 2; 31.69302686176673/kg"
+      },
+      {
+        "time": 2.188729620697128,
+        "lotId": 14,
+        "type": "spoilage",
+        "kg": 307.2642946679494,
+        "detail": "observed day 2; 29.780310161265586C; transit"
+      },
+      {
+        "time": 2.188729620697128,
+        "lotId": 14,
+        "type": "settlement",
+        "kg": 3941.7357053320507,
+        "rupees": 150526.83,
+        "detail": "day 2; 38.18795544953987/kg"
+      },
+      {
+        "time": 3,
+        "lotId": 8,
+        "type": "spoilage",
+        "kg": 160.13729291444545,
+        "detail": "observed day 2; 27.3799760955624C; transit"
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "harvest",
+        "kg": 4727
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_2:0\"}"
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "dispatch",
+        "kg": 4727,
+        "rupees": 3270.75,
+        "detail": "market_2; arrival 3.18725977952378; dispatch rain false"
+      },
+      {
+        "time": 3.183824793164128,
+        "lotId": 8,
+        "type": "spoilage",
+        "kg": 34.63043638137696,
+        "detail": "observed day 3; 28.522686188870704C; transit"
+      },
+      {
+        "time": 3.183824793164128,
+        "lotId": 8,
+        "type": "settlement",
+        "kg": 4686.232270704178,
+        "rupees": 162002.27,
+        "detail": "day 3; 34.56983269805787/kg"
+      },
+      {
+        "time": 3.18725977952378,
+        "lotId": 18,
+        "type": "spoilage",
+        "kg": 56.94706434413136,
+        "detail": "observed day 3; 31.114035956007413C; transit"
+      },
+      {
+        "time": 3.18725977952378,
+        "lotId": 18,
+        "type": "settlement",
+        "kg": 4670.052935655868,
+        "rupees": 162832.87,
+        "detail": "day 3; 34.867457034734144/kg"
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "harvest",
+        "kg": 2566
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "dispatch",
+        "kg": 2566,
+        "rupees": 1961.23,
+        "detail": "market_4; arrival 4.189414109597459; dispatch rain false"
+      },
+      {
+        "time": 4,
+        "lotId": 10,
+        "type": "harvest",
+        "kg": 3233
+      },
+      {
+        "time": 4,
+        "lotId": 10,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 10,
+        "type": "dispatch",
+        "kg": 3233,
+        "rupees": 2374.73,
+        "detail": "market_1; arrival 5.188527661778321; dispatch rain true"
+      },
+      {
+        "time": 4,
+        "lotId": 21,
+        "type": "harvest",
+        "kg": 3862
+      },
+      {
+        "time": 4,
+        "lotId": 21,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 21,
+        "type": "dispatch",
+        "kg": 3862,
+        "rupees": 2732.56,
+        "detail": "market_4; arrival 4.187724745698132; dispatch rain false"
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "harvest",
+        "kg": 4055
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_2:0\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "dispatch",
+        "kg": 4055,
+        "rupees": 2612.89,
+        "detail": "market_2; arrival 4.185844089592698; dispatch rain false"
+      },
+      {
+        "time": 4.185844089592698,
+        "lotId": 26,
+        "type": "spoilage",
+        "kg": 301.4135785615601,
+        "detail": "observed day 4; 30.832980347165098C; transit"
+      },
+      {
+        "time": 4.185844089592698,
+        "lotId": 26,
+        "type": "settlement",
+        "kg": 3753.58642143844,
+        "rupees": 123419.93,
+        "detail": "day 4; 32.88053606334246/kg"
+      },
+      {
+        "time": 4.187724745698132,
+        "lotId": 21,
+        "type": "spoilage",
+        "kg": 31.82761970745537,
+        "detail": "observed day 4; 29.30531583456458C; transit"
+      },
+      {
+        "time": 4.187724745698132,
+        "lotId": 21,
+        "type": "settlement",
+        "kg": 3830.1723802925444,
+        "rupees": 126622.71,
+        "detail": "day 4; 33.0592707286483/kg"
+      },
+      {
+        "time": 4.189414109597459,
+        "lotId": 2,
+        "type": "spoilage",
+        "kg": 142.24862787449484,
+        "detail": "observed day 4; 29.30531583456458C; transit"
+      },
+      {
+        "time": 4.189414109597459,
+        "lotId": 2,
+        "type": "settlement",
+        "kg": 2423.7513721255054,
+        "rupees": 80127.45,
+        "detail": "day 4; 33.0592707286483/kg"
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "harvest",
+        "kg": 3686
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "dispatch",
+        "kg": 3686,
+        "rupees": 3081.08,
+        "detail": "market_1; arrival 6.191544258782318; dispatch rain true"
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "harvest",
+        "kg": 3748
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "dispatch",
+        "kg": 3748,
+        "rupees": 2741.16,
+        "detail": "market_0; arrival 5.188433510674966; dispatch rain false"
+      },
+      {
+        "time": 5,
+        "lotId": 10,
+        "type": "spoilage",
+        "kg": 1481.450971258081,
+        "detail": "observed day 4; 30.635360112856837C; transit"
+      },
+      {
+        "time": 5,
+        "lotId": 16,
+        "type": "harvest",
+        "kg": 2413
+      },
+      {
+        "time": 5,
+        "lotId": 16,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 16,
+        "type": "dispatch",
+        "kg": 2413,
+        "rupees": 1559.11,
+        "detail": "market_0; arrival 5.185896691939211; dispatch rain false"
+      },
+      {
+        "time": 5.185896691939211,
+        "lotId": 16,
+        "type": "spoilage",
+        "kg": 39.863666654427384,
+        "detail": "observed day 5; 30.498971817741733C; transit"
+      },
+      {
+        "time": 5.185896691939211,
+        "lotId": 16,
+        "type": "settlement",
+        "kg": 2373.1363333455724,
+        "rupees": 74024.94,
+        "detail": "day 5; 31.19287221561756/kg"
+      },
+      {
+        "time": 5.188433510674966,
+        "lotId": 4,
+        "type": "spoilage",
+        "kg": 62.76333045801392,
+        "detail": "observed day 5; 30.498971817741733C; transit"
+      },
+      {
+        "time": 5.188433510674966,
+        "lotId": 4,
+        "type": "settlement",
+        "kg": 3685.2366695419864,
+        "rupees": 114953.12,
+        "detail": "day 5; 31.19287221561756/kg"
+      },
+      {
+        "time": 5.188527661778321,
+        "lotId": 10,
+        "type": "spoilage",
+        "kg": 156.81374773266757,
+        "detail": "observed day 5; 27.22632021309268C; transit"
+      },
+      {
+        "time": 5.188527661778321,
+        "lotId": 10,
+        "type": "settlement",
+        "kg": 1594.7352810092514,
+        "rupees": 52101.35,
+        "detail": "day 5; 32.67084286793732/kg"
+      },
+      {
+        "time": 6,
+        "lotId": 3,
+        "type": "spoilage",
+        "kg": 118.5410288640934,
+        "detail": "observed day 5; 27.22632021309268C; transit"
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "harvest",
+        "kg": 1539
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "dispatch",
+        "kg": 1539,
+        "rupees": 997.31,
+        "detail": "market_4; arrival 6.185953042853112; dispatch rain false"
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "harvest",
+        "kg": 3429
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "dispatch",
+        "kg": 3429,
+        "rupees": 2154.2,
+        "detail": "market_1; arrival 6.185363983293006; dispatch rain false"
+      },
+      {
+        "time": 6.185363983293006,
+        "lotId": 27,
+        "type": "spoilage",
+        "kg": 168.7968112926592,
+        "detail": "observed day 6; 28.72408070740849C; transit"
+      },
+      {
+        "time": 6.185363983293006,
+        "lotId": 27,
+        "type": "settlement",
+        "kg": 3260.203188707341,
+        "rupees": 111607.17,
+        "detail": "day 6; 34.233193461391956/kg"
+      },
+      {
+        "time": 6.185953042853112,
+        "lotId": 13,
+        "type": "spoilage",
+        "kg": 112.27370201529088,
+        "detail": "observed day 6; 29.90207006958828C; transit"
+      },
+      {
+        "time": 6.185953042853112,
+        "lotId": 13,
+        "type": "settlement",
+        "kg": 1426.7262979847092,
+        "rupees": 49674.13,
+        "detail": "day 6; 34.81686154049268/kg"
+      },
+      {
+        "time": 6.191544258782318,
+        "lotId": 3,
+        "type": "spoilage",
+        "kg": 28.124650149065324,
+        "detail": "observed day 6; 28.72408070740849C; transit"
+      },
+      {
+        "time": 6.191544258782318,
+        "lotId": 3,
+        "type": "settlement",
+        "kg": 3539.3343209868412,
+        "rupees": 121162.72,
+        "detail": "day 6; 34.233193461391956/kg"
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "harvest",
+        "kg": 4084
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "dispatch",
+        "kg": 4084,
+        "rupees": 2577.66,
+        "detail": "market_0; arrival 7.1854511873597335; dispatch rain false"
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "harvest",
+        "kg": 1664
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "dispatch",
+        "kg": 1664,
+        "rupees": 1307.64,
+        "detail": "market_4; arrival 8.190054813278758; dispatch rain true"
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "harvest",
+        "kg": 4648
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "dispatch",
+        "kg": 4648,
+        "rupees": 2758.4,
+        "detail": "market_0; arrival 7.18432918289069; dispatch rain false"
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "harvest",
+        "kg": 2843
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "dispatch",
+        "kg": 2843,
+        "rupees": 2199.56,
+        "detail": "market_1; arrival 7.189692677150764; dispatch rain false"
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "harvest",
+        "kg": 3975
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "dispatch",
+        "kg": 3975,
+        "rupees": 2974.45,
+        "detail": "market_4; arrival 8.188937177183837; dispatch rain true"
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "harvest",
+        "kg": 1899
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "dispatch",
+        "kg": 1899,
+        "rupees": 1016.23,
+        "detail": "market_0; arrival 7.182593438399543; dispatch rain false"
+      },
+      {
+        "time": 7.182593438399543,
+        "lotId": 29,
+        "type": "spoilage",
+        "kg": 145.79416139172156,
+        "detail": "observed day 7; 31.036135967188542C; transit"
+      },
+      {
+        "time": 7.182593438399543,
+        "lotId": 29,
+        "type": "settlement",
+        "kg": 1753.2058386082786,
+        "rupees": 59166.18,
+        "detail": "day 7; 33.74742633644158/kg"
+      },
+      {
+        "time": 7.18432918289069,
+        "lotId": 19,
+        "type": "spoilage",
+        "kg": 391.7314084331894,
+        "detail": "observed day 7; 31.354806619911994C; transit"
+      },
+      {
+        "time": 7.18432918289069,
+        "lotId": 19,
+        "type": "settlement",
+        "kg": 4256.268591566811,
+        "rupees": 143638.11,
+        "detail": "day 7; 33.74742633644158/kg"
+      },
+      {
+        "time": 7.1854511873597335,
+        "lotId": 0,
+        "type": "spoilage",
+        "kg": 318.45300566476186,
+        "detail": "observed day 7; 31.036135967188542C; transit"
+      },
+      {
+        "time": 7.1854511873597335,
+        "lotId": 0,
+        "type": "settlement",
+        "kg": 3765.546994335238,
+        "rupees": 127077.52,
+        "detail": "day 7; 33.74742633644158/kg"
+      },
+      {
+        "time": 7.189692677150764,
+        "lotId": 20,
+        "type": "spoilage",
+        "kg": 226.7552892310461,
+        "detail": "observed day 7; 31.036135967188542C; transit"
+      },
+      {
+        "time": 7.189692677150764,
+        "lotId": 20,
+        "type": "settlement",
+        "kg": 2616.2447107689536,
+        "rupees": 97753.5,
+        "detail": "day 7; 37.364052079306376/kg"
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "harvest",
+        "kg": 2861
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "dispatch",
+        "kg": 2861,
+        "rupees": 1616.29,
+        "detail": "market_1; arrival 8.18348029403431; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 9,
+        "type": "harvest",
+        "kg": 4924
+      },
+      {
+        "time": 8,
+        "lotId": 9,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_3:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 9,
+        "type": "dispatch",
+        "kg": 4924,
+        "rupees": 3901.35,
+        "detail": "market_3; arrival 9.190247417475572; dispatch rain true"
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "harvest",
+        "kg": 559
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "dispatch",
+        "kg": 559,
+        "rupees": 292.87,
+        "detail": "market_4; arrival 8.182259280899304; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "harvest",
+        "kg": 4137
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_2:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "dispatch",
+        "kg": 4137,
+        "rupees": 2939.23,
+        "detail": "market_2; arrival 8.187811706466901; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 15,
+        "type": "spoilage",
+        "kg": 374.203933081204,
+        "detail": "observed day 7; 26.106453712024965C; transit"
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "harvest",
+        "kg": 4843
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "dispatch",
+        "kg": 4843,
+        "rupees": 3219.09,
+        "detail": "market_0; arrival 8.186449057512448; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 23,
+        "type": "harvest",
+        "kg": 1243
+      },
+      {
+        "time": 8,
+        "lotId": 23,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_3:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 23,
+        "type": "dispatch",
+        "kg": 1243,
+        "rupees": 895.54,
+        "detail": "market_3; arrival 9.188109030226968; dispatch rain true"
+      },
+      {
+        "time": 8,
+        "lotId": 24,
+        "type": "spoilage",
+        "kg": 893.9066310082848,
+        "detail": "observed day 7; 26.106453712024965C; transit"
+      },
+      {
+        "time": 8.182259280899304,
+        "lotId": 11,
+        "type": "spoilage",
+        "kg": 23.973992263855084,
+        "detail": "observed day 8; 27.917120568169686C; transit"
+      },
+      {
+        "time": 8.182259280899304,
+        "lotId": 11,
+        "type": "settlement",
+        "kg": 535.0260077361448,
+        "rupees": 21605.69,
+        "detail": "day 8; 40.38250072804393/kg"
+      },
+      {
+        "time": 8.18348029403431,
+        "lotId": 6,
+        "type": "spoilage",
+        "kg": 40.818254982711146,
+        "detail": "observed day 8; 29.855859257535634C; transit"
+      },
+      {
+        "time": 8.18348029403431,
+        "lotId": 6,
+        "type": "settlement",
+        "kg": 2820.181745017289,
+        "rupees": 110761.55,
+        "detail": "day 8; 39.274612680329945/kg"
+      },
+      {
+        "time": 8.186449057512448,
+        "lotId": 22,
+        "type": "spoilage",
+        "kg": 70.21369210051623,
+        "detail": "observed day 8; 29.855859257535634C; transit"
+      },
+      {
+        "time": 8.186449057512448,
+        "lotId": 22,
+        "type": "settlement",
+        "kg": 4772.786307899483,
+        "rupees": 195194.64,
+        "detail": "day 8; 40.89741876266336/kg"
+      },
+      {
+        "time": 8.187811706466901,
+        "lotId": 12,
+        "type": "spoilage",
+        "kg": 62.186443438685316,
+        "detail": "observed day 8; 30.002273893218195C; transit"
+      },
+      {
+        "time": 8.187811706466901,
+        "lotId": 12,
+        "type": "settlement",
+        "kg": 4074.8135565613147,
+        "rupees": 143774.91,
+        "detail": "day 8; 35.28380148554719/kg"
+      },
+      {
+        "time": 8.188937177183837,
+        "lotId": 24,
+        "type": "spoilage",
+        "kg": 212.06778585857566,
+        "detail": "observed day 8; 27.917120568169686C; transit"
+      },
+      {
+        "time": 8.188937177183837,
+        "lotId": 24,
+        "type": "settlement",
+        "kg": 2869.0255831331397,
+        "rupees": 115858.43,
+        "detail": "day 8; 40.38250072804393/kg"
+      },
+      {
+        "time": 8.190054813278758,
+        "lotId": 15,
+        "type": "spoilage",
+        "kg": 89.30018146987706,
+        "detail": "observed day 8; 27.917120568169686C; transit"
+      },
+      {
+        "time": 8.190054813278758,
+        "lotId": 15,
+        "type": "settlement",
+        "kg": 1200.4958854489191,
+        "rupees": 48479.03,
+        "detail": "day 8; 40.38250072804393/kg"
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "harvest",
+        "kg": 3253
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "decision",
+        "detail": "{\"kind\":\"baseline\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "dispatch",
+        "kg": 3253,
+        "rupees": 2638.29,
+        "detail": "market_4; arrival 9.190804546122145; dispatch rain false"
+      },
+      {
+        "time": 9,
+        "lotId": 9,
+        "type": "spoilage",
+        "kg": 4103.333333333333,
+        "detail": "observed day 8; 34.513259463413355C; transit"
+      },
+      {
+        "time": 9,
+        "lotId": 23,
+        "type": "spoilage",
+        "kg": 1035.8333333333333,
+        "detail": "observed day 8; 34.513259463413355C; transit"
+      },
+      {
+        "time": 9.188109030226968,
+        "lotId": 23,
+        "type": "spoilage",
+        "kg": 83.45833977104637,
+        "detail": "observed day 9; 30.330613948357037C; transit"
+      },
+      {
+        "time": 9.188109030226968,
+        "lotId": 23,
+        "type": "settlement",
+        "kg": 123.7083268956204,
+        "rupees": 3790.8,
+        "detail": "day 9; 30.643038817240114/kg"
+      },
+      {
+        "time": 9.190247417475572,
+        "lotId": 9,
+        "type": "spoilage",
+        "kg": 334.3688275392943,
+        "detail": "observed day 9; 30.330613948357037C; transit"
+      },
+      {
+        "time": 9.190247417475572,
+        "lotId": 9,
+        "type": "settlement",
+        "kg": 486.29783912737275,
+        "rupees": 14901.64,
+        "detail": "day 9; 30.643038817240114/kg"
+      },
+      {
+        "time": 9.190804546122145,
+        "lotId": 7,
+        "type": "spoilage",
+        "kg": 324.25246856190495,
+        "detail": "observed day 9; 31.80965066465979C; transit"
+      },
+      {
+        "time": 9.190804546122145,
+        "lotId": 7,
+        "type": "settlement",
+        "kg": 2928.747531438095,
+        "rupees": 110712.48,
+        "detail": "day 9; 37.80198772039323/kg"
+      }
+    ],
+    "reservations": [],
+    "peakReservedKg": {
+      "North": 0,
+      "South": 0,
+      "East": 0,
+      "West": 0
+    }
+  },
+  "B": {
+    "id": "B",
+    "name": "Best-feasible deterministic planner",
+    "status": "COMPLETE",
+    "cohortLots": 30,
+    "evaluatedLots": 30,
+    "unevaluatedKg": 0,
+    "classification": {
+      "deterministic": 27,
+      "infeasible": 3
+    },
+    "totals": {
+      "initialKg": 97509,
+      "soldKg": 82086.90124467511,
+      "spoiledKg": 15422.098755324885,
+      "unsoldKg": 0,
+      "gross": 3058863.73,
+      "transport": 107219.68,
+      "storage": 4013.86,
+      "net": 2947630.19,
+      "massErrorKg": 0
+    },
+    "previewTotals": null,
+    "lots": [
+      {
+        "lotId": 0,
+        "initialKg": 4084,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.187986413376392,
+          "distanceKm": 20.46695684133679,
+          "transitHours": 4.511673921033419,
+          "expectedPrice": 37.364052079306376,
+          "saleableKg": 3761.193555802227,
+          "spoiledKg": 322.8064441977731,
+          "remainingHours": 52.567968151451566,
+          "gross": 140533.43,
+          "transport": 2925.55,
+          "storage": 0,
+          "net": 137607.88,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.187986413376392,
+          "settlementDay": 7,
+          "settlementPrice": 37.364052079306376,
+          "soldKg": 3761.1935558022274,
+          "spoiledKg": 322.80644419777263,
+          "unsoldKg": 0,
+          "gross": 140533.43,
+          "transport": 2925.55,
+          "storage": 0,
+          "net": 137607.88
+        }
+      },
+      {
+        "lotId": 1,
+        "initialKg": 1202,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 2,
+          "arrivalDay": 2.199088750492386,
+          "distanceKm": 31.125200472690867,
+          "transitHours": 4.778130011817272,
+          "expectedPrice": 42.392606857845145,
+          "saleableKg": 1128.8651311805475,
+          "spoiledKg": 73.13486881945255,
+          "remainingHours": 73.75229421554864,
+          "gross": 47855.54,
+          "transport": 1309.44,
+          "storage": 0,
+          "net": 46546.1,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 2,
+          "arrivalDay": 2.199088750492386,
+          "settlementDay": 2,
+          "settlementPrice": 42.392606857845145,
+          "soldKg": 1128.8651311805477,
+          "spoiledKg": 73.13486881945244,
+          "unsoldKg": 0,
+          "gross": 47855.54,
+          "transport": 1309.44,
+          "storage": 0,
+          "net": 46546.1
+        }
+      },
+      {
+        "lotId": 2,
+        "initialKg": 2566,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 4,
+          "arrivalDay": 4.189414109597459,
+          "distanceKm": 21.837545213560702,
+          "transitHours": 4.545938630339018,
+          "expectedPrice": 33.0592707286483,
+          "saleableKg": 2423.7513721255054,
+          "spoiledKg": 142.24862787449456,
+          "remainingHours": 77.457513351931,
+          "gross": 80127.45,
+          "transport": 1961.23,
+          "storage": 0,
+          "net": 78166.22,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 4,
+          "arrivalDay": 4.189414109597459,
+          "settlementDay": 4,
+          "settlementPrice": 33.0592707286483,
+          "soldKg": 2423.7513721255054,
+          "spoiledKg": 142.24862787449484,
+          "unsoldKg": 0,
+          "gross": 80127.45,
+          "transport": 1961.23,
+          "storage": 0,
+          "net": 78166.22
+        }
+      },
+      {
+        "lotId": 3,
+        "initialKg": 3686,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 5,
+          "arrivalDay": 6.191544258782318,
+          "distanceKm": 23.882488431024818,
+          "transitHours": 28.59706221077562,
+          "expectedPrice": 35.864582853177325,
+          "saleableKg": 3544.753117626841,
+          "spoiledKg": 141.24688237315922,
+          "remainingHours": 717.6761973323271,
+          "gross": 127131.09,
+          "transport": 3081.08,
+          "storage": 0,
+          "net": 124050.01,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 5,
+          "arrivalDay": 6.191544258782318,
+          "settlementDay": 6,
+          "settlementPrice": 34.233193461391956,
+          "soldKg": 3539.3343209868412,
+          "spoiledKg": 146.66567901315872,
+          "unsoldKg": 0,
+          "gross": 121162.72,
+          "transport": 3081.08,
+          "storage": 0,
+          "net": 118081.64
+        }
+      },
+      {
+        "lotId": 4,
+        "initialKg": 3748,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 5,
+          "arrivalDay": 5.222237174340317,
+          "distanceKm": 53.34768736670438,
+          "transitHours": 5.333692184167609,
+          "expectedPrice": 32.67084286793732,
+          "saleableKg": 3673.977363775616,
+          "spoiledKg": 74.02263622438386,
+          "remainingHours": 264.7279987513284,
+          "gross": 120031.94,
+          "transport": 6998.15,
+          "storage": 0,
+          "net": 113033.79,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 5,
+          "arrivalDay": 5.222237174340317,
+          "settlementDay": 5,
+          "settlementPrice": 32.67084286793732,
+          "soldKg": 3673.977363775616,
+          "spoiledKg": 74.02263622438387,
+          "unsoldKg": 0,
+          "gross": 120031.94,
+          "transport": 6998.15,
+          "storage": 0,
+          "net": 113033.79
+        }
+      },
+      {
+        "lotId": 5,
+        "initialKg": 4964,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 0,
+          "arrivalDay": 0.21914551477496583,
+          "distanceKm": 50.379694183967196,
+          "transitHours": 5.25949235459918,
+          "expectedPrice": 36.59714513478724,
+          "saleableKg": 4925.033371826879,
+          "spoiledKg": 38.966628173120625,
+          "remainingHours": 664.7528046354716,
+          "gross": 180242.16,
+          "transport": 8752.97,
+          "storage": 0,
+          "net": 171489.19,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 0,
+          "arrivalDay": 0.21914551477496583,
+          "settlementDay": 0,
+          "settlementPrice": 36.59714513478724,
+          "soldKg": 4925.033371826879,
+          "spoiledKg": 38.966628173120284,
+          "unsoldKg": 0,
+          "gross": 180242.16,
+          "transport": 8752.97,
+          "storage": 0,
+          "net": 171489.19
+        }
+      },
+      {
+        "lotId": 6,
+        "initialKg": 2861,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "reroute",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.193030211857922,
+          "distanceKm": 25.309003383604217,
+          "transitHours": 4.632725084590105,
+          "expectedPrice": 40.89741876266336,
+          "saleableKg": 2818.057206342224,
+          "spoiledKg": 42.94279365777584,
+          "remainingHours": 304.0157194632718,
+          "gross": 115251.27,
+          "transport": 2534.32,
+          "storage": 0,
+          "net": 112716.95,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.193030211857922,
+          "settlementDay": 8,
+          "settlementPrice": 40.89741876266336,
+          "soldKg": 2818.057206342224,
+          "spoiledKg": 42.94279365777595,
+          "unsoldKg": 0,
+          "gross": 115251.27,
+          "transport": 2534.32,
+          "storage": 0,
+          "net": 112716.95
+        }
+      },
+      {
+        "lotId": 7,
+        "initialKg": 3253,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 9,
+          "arrivalDay": 9.223934651481148,
+          "distanceKm": 54.97726542190262,
+          "transitHours": 5.374431635547566,
+          "expectedPrice": 40.68521990397039,
+          "saleableKg": 2872.446365324914,
+          "spoiledKg": 380.55363467508596,
+          "remainingHours": 40.566598793351424,
+          "gross": 116866.11,
+          "transport": 6259.44,
+          "storage": 0,
+          "net": 110606.67,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 9,
+          "arrivalDay": 9.223934651481148,
+          "settlementDay": 9,
+          "settlementPrice": 40.68521990397039,
+          "soldKg": 2872.446365324915,
+          "spoiledKg": 380.5536346750849,
+          "unsoldKg": 0,
+          "gross": 116866.11,
+          "transport": 6259.44,
+          "storage": 0,
+          "net": 110606.67
+        }
+      },
+      {
+        "lotId": 8,
+        "initialKg": 4881,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 2,
+          "arrivalDay": 3.183824793164128,
+          "distanceKm": 16.47180143756298,
+          "transitHours": 28.411795035939075,
+          "expectedPrice": 39.89957589364434,
+          "saleableKg": 4691.425502337694,
+          "spoiledKg": 189.57449766230638,
+          "remainingHours": 703.1104997900704,
+          "gross": 187185.89,
+          "transport": 2813.96,
+          "storage": 0,
+          "net": 184371.93,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 2,
+          "arrivalDay": 3.183824793164128,
+          "settlementDay": 3,
+          "settlementPrice": 34.56983269805787,
+          "soldKg": 4686.232270704178,
+          "spoiledKg": 194.76772929582242,
+          "unsoldKg": 0,
+          "gross": 162002.27,
+          "transport": 2813.96,
+          "storage": 0,
+          "net": 159188.31
+        }
+      },
+      {
+        "lotId": 9,
+        "initialKg": 4924,
+        "decision": {
+          "kind": "infeasible",
+          "candidateId": null,
+          "reason": "No feasible candidate under Balanced policy"
+        },
+        "predicted": null,
+        "realized": {
+          "status": "spoiled",
+          "actualDispatchDay": null,
+          "arrivalDay": null,
+          "settlementDay": null,
+          "settlementPrice": null,
+          "soldKg": 0,
+          "spoiledKg": 4924,
+          "unsoldKg": 0,
+          "gross": 0,
+          "transport": 0,
+          "storage": 0,
+          "net": 0
+        }
+      },
+      {
+        "lotId": 10,
+        "initialKg": 3233,
+        "decision": {
+          "kind": "infeasible",
+          "candidateId": null,
+          "reason": "No feasible candidate under Balanced policy"
+        },
+        "predicted": null,
+        "realized": {
+          "status": "spoiled",
+          "actualDispatchDay": null,
+          "arrivalDay": null,
+          "settlementDay": null,
+          "settlementPrice": null,
+          "soldKg": 0,
+          "spoiledKg": 3233,
+          "unsoldKg": 0,
+          "gross": 0,
+          "transport": 0,
+          "storage": 0,
+          "net": 0
+        }
+      },
+      {
+        "lotId": 11,
+        "initialKg": 559,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.182259280899304,
+          "distanceKm": 14.968909663331432,
+          "transitHours": 4.374222741583286,
+          "expectedPrice": 40.38250072804393,
+          "saleableKg": 535.026007736145,
+          "spoiledKg": 23.973992263855052,
+          "remainingHours": 97.6192410767732,
+          "gross": 21605.69,
+          "transport": 292.87,
+          "storage": 0,
+          "net": 21312.82,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.182259280899304,
+          "settlementDay": 8,
+          "settlementPrice": 40.38250072804393,
+          "soldKg": 535.0260077361448,
+          "spoiledKg": 23.973992263855084,
+          "unsoldKg": 0,
+          "gross": 21605.69,
+          "transport": 292.87,
+          "storage": 0,
+          "net": 21312.82
+        }
+      },
+      {
+        "lotId": 12,
+        "initialKg": 4137,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "reroute",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.191704632667347,
+          "distanceKm": 24.036447360654417,
+          "transitHours": 4.60091118401636,
+          "expectedPrice": 40.89741876266336,
+          "saleableKg": 4073.524567501318,
+          "spoiledKg": 63.47543249868204,
+          "remainingHours": 295.2626552228919,
+          "gross": 166596.64,
+          "transport": 3480.36,
+          "storage": 0,
+          "net": 163116.28,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.191704632667347,
+          "settlementDay": 8,
+          "settlementPrice": 40.89741876266336,
+          "soldKg": 4073.5245675013184,
+          "spoiledKg": 63.47543249868148,
+          "unsoldKg": 0,
+          "gross": 166596.64,
+          "transport": 3480.36,
+          "storage": 0,
+          "net": 163116.28
+        }
+      },
+      {
+        "lotId": 13,
+        "initialKg": 1539,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 6,
+          "arrivalDay": 6.185953042853112,
+          "distanceKm": 18.514921138986967,
+          "transitHours": 4.462873028474674,
+          "expectedPrice": 34.81686154049268,
+          "saleableKg": 1426.7262979847094,
+          "spoiledKg": 112.27370201529061,
+          "remainingHours": 56.71228613646596,
+          "gross": 49674.13,
+          "transport": 997.31,
+          "storage": 0,
+          "net": 48676.82,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 6,
+          "arrivalDay": 6.185953042853112,
+          "settlementDay": 6,
+          "settlementPrice": 34.81686154049268,
+          "soldKg": 1426.7262979847092,
+          "spoiledKg": 112.27370201529088,
+          "unsoldKg": 0,
+          "gross": 49674.13,
+          "transport": 997.31,
+          "storage": 0,
+          "net": 48676.82
+        }
+      },
+      {
+        "lotId": 14,
+        "initialKg": 4249,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 2,
+          "arrivalDay": 2.225593860854471,
+          "distanceKm": 56.57010642029253,
+          "transitHours": 5.414252660507313,
+          "expectedPrice": 42.392606857845145,
+          "saleableKg": 3881.7182861872643,
+          "spoiledKg": 367.2817138127357,
+          "remainingHours": 57.22202540430566,
+          "gross": 164556.16,
+          "transport": 8412.82,
+          "storage": 0,
+          "net": 156143.34,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 2,
+          "arrivalDay": 2.225593860854471,
+          "settlementDay": 2,
+          "settlementPrice": 42.392606857845145,
+          "soldKg": 3881.7182861872643,
+          "spoiledKg": 367.2817138127354,
+          "unsoldKg": 0,
+          "gross": 164556.16,
+          "transport": 8412.82,
+          "storage": 0,
+          "net": 156143.34
+        }
+      },
+      {
+        "lotId": 15,
+        "initialKg": 1664,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 8.190054813278758,
+          "distanceKm": 22.452620747608265,
+          "transitHours": 28.561315518690208,
+          "expectedPrice": 35.20032556939723,
+          "saleableKg": 1218.6768082888707,
+          "spoiledKg": 445.3231917111293,
+          "remainingHours": 78.16123993701021,
+          "gross": 42897.82,
+          "transport": 1307.64,
+          "storage": 0,
+          "net": 41590.18,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 8.190054813278758,
+          "settlementDay": 8,
+          "settlementPrice": 40.38250072804393,
+          "soldKg": 1200.4958854489191,
+          "spoiledKg": 463.50411455108105,
+          "unsoldKg": 0,
+          "gross": 48479.03,
+          "transport": 1307.64,
+          "storage": 0,
+          "net": 47171.39
+        }
+      },
+      {
+        "lotId": 16,
+        "initialKg": 2413,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:1"
+        },
+        "predicted": {
+          "id": "market_1:1",
+          "action": "store",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 1,
+          "dispatchDay": 6,
+          "arrivalDay": 6.218442048517844,
+          "distanceKm": 49.70436657713081,
+          "transitHours": 5.24260916442827,
+          "expectedPrice": 35.864582853177325,
+          "saleableKg": 2312.5473374257845,
+          "spoiledKg": 100.45266257421554,
+          "remainingHours": 258.81908177106766,
+          "gross": 82938.55,
+          "transport": 4197.78,
+          "storage": 603.25,
+          "net": 78137.52,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 6,
+          "arrivalDay": 7.218442048517844,
+          "settlementDay": 7,
+          "settlementPrice": 37.364052079306376,
+          "soldKg": 1909.599684340364,
+          "spoiledKg": 503.40031565963596,
+          "unsoldKg": 0,
+          "gross": 71350.38,
+          "transport": 4197.78,
+          "storage": 603.25,
+          "net": 66549.35
+        }
+      },
+      {
+        "lotId": 17,
+        "initialKg": 1331,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:7"
+        },
+        "predicted": {
+          "id": "market_4:7",
+          "action": "store",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 7,
+          "dispatchDay": 8,
+          "arrivalDay": 8.229572987402175,
+          "distanceKm": 60.390067906087566,
+          "transitHours": 5.509751697652189,
+          "expectedPrice": 64.97892441783426,
+          "saleableKg": 1111.9223907106798,
+          "spoiledKg": 219.0776092893202,
+          "remainingHours": 241.13444026111836,
+          "gross": 72251.52,
+          "transport": 2813.27,
+          "storage": 2329.25,
+          "net": 67109,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.229572987402175,
+          "settlementDay": 8,
+          "settlementPrice": 40.38250072804393,
+          "soldKg": 1155.6560259697217,
+          "spoiledKg": 175.34397403027842,
+          "unsoldKg": 0,
+          "gross": 46668.28,
+          "transport": 2813.27,
+          "storage": 2329.25,
+          "net": 41525.76
+        }
+      },
+      {
+        "lotId": 18,
+        "initialKg": 4727,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 3,
+          "arrivalDay": 3.222934980220641,
+          "distanceKm": 54.01758101181539,
+          "transitHours": 5.350439525295385,
+          "expectedPrice": 38.787546793274394,
+          "saleableKg": 4659.203847000844,
+          "spoiledKg": 67.79615299915622,
+          "remainingHours": 367.70210869799297,
+          "gross": 180719.09,
+          "transport": 8936.94,
+          "storage": 0,
+          "net": 171782.15,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 3,
+          "arrivalDay": 3.222934980220641,
+          "settlementDay": 3,
+          "settlementPrice": 38.787546793274394,
+          "soldKg": 4659.203847000844,
+          "spoiledKg": 67.79615299915655,
+          "unsoldKg": 0,
+          "gross": 180719.09,
+          "transport": 8936.94,
+          "storage": 0,
+          "net": 171782.15
+        }
+      },
+      {
+        "lotId": 19,
+        "initialKg": 4648,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.218321585969296,
+          "distanceKm": 49.588722530524215,
+          "transitHours": 5.239718063263105,
+          "expectedPrice": 37.364052079306376,
+          "saleableKg": 4184.02885326174,
+          "spoiledKg": 463.97114673826036,
+          "remainingHours": 47.25106661000417,
+          "gross": 156332.27,
+          "transport": 8067.09,
+          "storage": 0,
+          "net": 148265.18,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.218321585969296,
+          "settlementDay": 7,
+          "settlementPrice": 37.364052079306376,
+          "soldKg": 4184.028853261741,
+          "spoiledKg": 463.97114673825956,
+          "unsoldKg": 0,
+          "gross": 156332.27,
+          "transport": 8067.09,
+          "storage": 0,
+          "net": 148265.18
+        }
+      },
+      {
+        "lotId": 20,
+        "initialKg": 2843,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.189692677150764,
+          "distanceKm": 22.10497006473355,
+          "transitHours": 4.552624251618338,
+          "expectedPrice": 37.364052079306376,
+          "saleableKg": 2616.2447107689536,
+          "spoiledKg": 226.7552892310464,
+          "remainingHours": 52.52701782086665,
+          "gross": 97753.5,
+          "transport": 2199.56,
+          "storage": 0,
+          "net": 95553.94,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.189692677150764,
+          "settlementDay": 7,
+          "settlementPrice": 37.364052079306376,
+          "soldKg": 2616.2447107689536,
+          "spoiledKg": 226.7552892310461,
+          "unsoldKg": 0,
+          "gross": 97753.5,
+          "transport": 2199.56,
+          "storage": 0,
+          "net": 95553.94
+        }
+      },
+      {
+        "lotId": 21,
+        "initialKg": 3862,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:1"
+        },
+        "predicted": {
+          "id": "market_4:1",
+          "action": "store",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 1,
+          "dispatchDay": 5,
+          "arrivalDay": 5.187724745698132,
+          "distanceKm": 20.21575587020669,
+          "transitHours": 4.505393896755168,
+          "expectedPrice": 35.63272866546167,
+          "saleableKg": 3787.786359753415,
+          "spoiledKg": 74.21364024658487,
+          "remainingHours": 536.184285985045,
+          "gross": 134969.16,
+          "transport": 2732.56,
+          "storage": 1081.36,
+          "net": 131155.24,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 5,
+          "arrivalDay": 5.187724745698132,
+          "settlementDay": 5,
+          "settlementPrice": 32.489479577144635,
+          "soldKg": 3778.9406212679432,
+          "spoiledKg": 83.05937873205662,
+          "unsoldKg": 0,
+          "gross": 122775.81,
+          "transport": 2732.56,
+          "storage": 1081.36,
+          "net": 118961.89
+        }
+      },
+      {
+        "lotId": 22,
+        "initialKg": 4843,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "sell_now",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 8,
+          "arrivalDay": 8.186449057512448,
+          "distanceKm": 18.991095211950164,
+          "transitHours": 4.474777380298754,
+          "expectedPrice": 40.89741876266336,
+          "saleableKg": 4772.786307899483,
+          "spoiledKg": 70.21369210051671,
+          "remainingHours": 304.17366716756317,
+          "gross": 195194.64,
+          "transport": 3219.09,
+          "storage": 0,
+          "net": 191975.55,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 8,
+          "arrivalDay": 8.186449057512448,
+          "settlementDay": 8,
+          "settlementPrice": 40.89741876266336,
+          "soldKg": 4772.786307899483,
+          "spoiledKg": 70.21369210051623,
+          "unsoldKg": 0,
+          "gross": 195194.64,
+          "transport": 3219.09,
+          "storage": 0,
+          "net": 191975.55
+        }
+      },
+      {
+        "lotId": 23,
+        "initialKg": 1243,
+        "decision": {
+          "kind": "infeasible",
+          "candidateId": null,
+          "reason": "No feasible candidate under Balanced policy"
+        },
+        "predicted": null,
+        "realized": {
+          "status": "spoiled",
+          "actualDispatchDay": null,
+          "arrivalDay": null,
+          "settlementDay": null,
+          "settlementPrice": null,
+          "soldKg": 0,
+          "spoiledKg": 1243,
+          "unsoldKg": 0,
+          "gross": 0,
+          "transport": 0,
+          "storage": 0,
+          "net": 0
+        }
+      },
+      {
+        "lotId": 24,
+        "initialKg": 3975,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_4:0"
+        },
+        "predicted": {
+          "id": "market_4:0",
+          "action": "sell_now",
+          "market": "market_4",
+          "marketName": "Market E",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 8.188937177183837,
+          "distanceKm": 21.379690096482594,
+          "transitHours": 28.534492252412065,
+          "expectedPrice": 35.20032556939723,
+          "saleableKg": 2912.2011734630973,
+          "spoiledKg": 1062.7988265369027,
+          "remainingHours": 78.18806320328835,
+          "gross": 102510.43,
+          "transport": 2974.45,
+          "storage": 0,
+          "net": 99535.98,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 8.188937177183837,
+          "settlementDay": 8,
+          "settlementPrice": 40.38250072804393,
+          "soldKg": 2869.0255831331397,
+          "spoiledKg": 1105.9744168668606,
+          "unsoldKg": 0,
+          "gross": 115858.43,
+          "transport": 2974.45,
+          "storage": 0,
+          "net": 112883.98
+        }
+      },
+      {
+        "lotId": 25,
+        "initialKg": 4169,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 0,
+          "arrivalDay": 0.22892900823908394,
+          "distanceKm": 59.771847909520595,
+          "transitHours": 5.494296197738015,
+          "expectedPrice": 36.59714513478724,
+          "saleableKg": 3941.086562676832,
+          "spoiledKg": 227.91343732316818,
+          "remainingHours": 95.0075483507726,
+          "gross": 144232.52,
+          "transport": 8721.61,
+          "storage": 0,
+          "net": 135510.91,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 0,
+          "arrivalDay": 0.22892900823908394,
+          "settlementDay": 0,
+          "settlementPrice": 36.59714513478724,
+          "soldKg": 3941.086562676832,
+          "spoiledKg": 227.91343732316838,
+          "unsoldKg": 0,
+          "gross": 144232.52,
+          "transport": 8721.61,
+          "storage": 0,
+          "net": 135510.91
+        }
+      },
+      {
+        "lotId": 26,
+        "initialKg": 4055,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_0:0"
+        },
+        "predicted": {
+          "id": "market_0:0",
+          "action": "reroute",
+          "market": "market_0",
+          "marketName": "Market A",
+          "storeDays": 0,
+          "dispatchDay": 4,
+          "arrivalDay": 4.192080926613942,
+          "distanceKm": 24.397689549384452,
+          "transitHours": 4.609942238734611,
+          "expectedPrice": 33.25736350855747,
+          "saleableKg": 3743.471128724002,
+          "spoiledKg": 311.528871275998,
+          "remainingHours": 55.395140762087976,
+          "gross": 124497.98,
+          "transport": 3462.64,
+          "storage": 0,
+          "net": 121035.34,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 4,
+          "arrivalDay": 4.192080926613942,
+          "settlementDay": 4,
+          "settlementPrice": 33.25736350855747,
+          "soldKg": 3743.4711287240025,
+          "spoiledKg": 311.5288712759977,
+          "unsoldKg": 0,
+          "gross": 124497.98,
+          "transport": 3462.64,
+          "storage": 0,
+          "net": 121035.34
+        }
+      },
+      {
+        "lotId": 27,
+        "initialKg": 3429,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "sell_now",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 6,
+          "arrivalDay": 6.185363983293006,
+          "distanceKm": 17.949423961285873,
+          "transitHours": 4.448735599032147,
+          "expectedPrice": 34.233193461391956,
+          "saleableKg": 3260.203188707341,
+          "spoiledKg": 168.79681129265919,
+          "remainingHours": 85.9245022142856,
+          "gross": 111607.17,
+          "transport": 2154.2,
+          "storage": 0,
+          "net": 109452.97,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 6,
+          "arrivalDay": 6.185363983293006,
+          "settlementDay": 6,
+          "settlementPrice": 34.233193461391956,
+          "soldKg": 3260.203188707341,
+          "spoiledKg": 168.7968112926592,
+          "unsoldKg": 0,
+          "gross": 111607.17,
+          "transport": 2154.2,
+          "storage": 0,
+          "net": 109452.97
+        }
+      },
+      {
+        "lotId": 28,
+        "initialKg": 2522,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 0,
+          "arrivalDay": 0.22868745583645936,
+          "distanceKm": 59.539957603001,
+          "transitHours": 5.488498940075025,
+          "expectedPrice": 36.59714513478724,
+          "saleableKg": 2501.340686150012,
+          "spoiledKg": 20.65931384998794,
+          "remainingHours": 664.5237980499958,
+          "gross": 91541.93,
+          "transport": 5255.59,
+          "storage": 0,
+          "net": 86286.34,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 0,
+          "arrivalDay": 0.22868745583645936,
+          "settlementDay": 0,
+          "settlementPrice": 36.59714513478724,
+          "soldKg": 2501.340686150012,
+          "spoiledKg": 20.659313849987953,
+          "unsoldKg": 0,
+          "gross": 91541.93,
+          "transport": 5255.59,
+          "storage": 0,
+          "net": 86286.34
+        }
+      },
+      {
+        "lotId": 29,
+        "initialKg": 1899,
+        "decision": {
+          "kind": "deterministic",
+          "candidateId": "market_1:0"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 7,
+          "arrivalDay": 7.187945965813067,
+          "distanceKm": 20.42812718054439,
+          "transitHours": 4.51070317951361,
+          "expectedPrice": 37.364052079306376,
+          "saleableKg": 1748.9320418474476,
+          "spoiledKg": 150.06795815255236,
+          "remainingHours": 52.56893889297137,
+          "gross": 65347.19,
+          "transport": 1357.76,
+          "storage": 0,
+          "net": 63989.43,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 7,
+          "arrivalDay": 7.187945965813067,
+          "settlementDay": 7,
+          "settlementPrice": 37.364052079306376,
+          "soldKg": 1748.9320418474479,
+          "spoiledKg": 150.06795815255222,
+          "unsoldKg": 0,
+          "gross": 65347.19,
+          "transport": 1357.76,
+          "storage": 0,
+          "net": 63989.43
+        }
+      }
+    ],
+    "ledger": [
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "harvest",
+        "kg": 4964
+      },
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "dispatch",
+        "kg": 4964,
+        "rupees": 8752.97,
+        "detail": "market_1; arrival 0.21914551477496583; dispatch rain false"
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "harvest",
+        "kg": 4169
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "dispatch",
+        "kg": 4169,
+        "rupees": 8721.61,
+        "detail": "market_1; arrival 0.22892900823908394; dispatch rain false"
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "harvest",
+        "kg": 2522
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "dispatch",
+        "kg": 2522,
+        "rupees": 5255.59,
+        "detail": "market_1; arrival 0.22868745583645936; dispatch rain false"
+      },
+      {
+        "time": 0.21914551477496583,
+        "lotId": 5,
+        "type": "spoilage",
+        "kg": 38.966628173120284,
+        "detail": "observed day 0; 28.020705239686762C; transit"
+      },
+      {
+        "time": 0.21914551477496583,
+        "lotId": 5,
+        "type": "settlement",
+        "kg": 4925.033371826879,
+        "rupees": 180242.16,
+        "detail": "day 0; 36.59714513478724/kg"
+      },
+      {
+        "time": 0.22868745583645936,
+        "lotId": 28,
+        "type": "spoilage",
+        "kg": 20.659313849987953,
+        "detail": "observed day 0; 28.020705239686762C; transit"
+      },
+      {
+        "time": 0.22868745583645936,
+        "lotId": 28,
+        "type": "settlement",
+        "kg": 2501.340686150012,
+        "rupees": 91541.93,
+        "detail": "day 0; 36.59714513478724/kg"
+      },
+      {
+        "time": 0.22892900823908394,
+        "lotId": 25,
+        "type": "spoilage",
+        "kg": 227.91343732316838,
+        "detail": "observed day 0; 28.020705239686762C; transit"
+      },
+      {
+        "time": 0.22892900823908394,
+        "lotId": 25,
+        "type": "settlement",
+        "kg": 3941.086562676832,
+        "rupees": 144232.52,
+        "detail": "day 0; 36.59714513478724/kg"
+      },
+      {
+        "time": 1,
+        "lotId": 17,
+        "type": "harvest",
+        "kg": 1331
+      },
+      {
+        "time": 1,
+        "lotId": 17,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:7\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "harvest",
+        "kg": 1202
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "dispatch",
+        "kg": 1202,
+        "rupees": 1309.44,
+        "detail": "market_1; arrival 2.199088750492386; dispatch rain false"
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "harvest",
+        "kg": 4881
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "dispatch",
+        "kg": 4881,
+        "rupees": 2813.96,
+        "detail": "market_4; arrival 3.183824793164128; dispatch rain true"
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "harvest",
+        "kg": 4249
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "dispatch",
+        "kg": 4249,
+        "rupees": 8412.82,
+        "detail": "market_1; arrival 2.225593860854471; dispatch rain false"
+      },
+      {
+        "time": 2,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 27.667281111066686,
+        "detail": "observed day 1; 31.99328966709614C; storage"
+      },
+      {
+        "time": 2.199088750492386,
+        "lotId": 1,
+        "type": "spoilage",
+        "kg": 73.13486881945244,
+        "detail": "observed day 2; 28.45579798105284C; transit"
+      },
+      {
+        "time": 2.199088750492386,
+        "lotId": 1,
+        "type": "settlement",
+        "kg": 1128.8651311805477,
+        "rupees": 47855.54,
+        "detail": "day 2; 42.392606857845145/kg"
+      },
+      {
+        "time": 2.225593860854471,
+        "lotId": 14,
+        "type": "spoilage",
+        "kg": 367.2817138127354,
+        "detail": "observed day 2; 29.780310161265586C; transit"
+      },
+      {
+        "time": 2.225593860854471,
+        "lotId": 14,
+        "type": "settlement",
+        "kg": 3881.7182861872643,
+        "rupees": 164556.16,
+        "detail": "day 2; 42.392606857845145/kg"
+      },
+      {
+        "time": 3,
+        "lotId": 8,
+        "type": "spoilage",
+        "kg": 160.13729291444545,
+        "detail": "observed day 2; 27.3799760955624C; transit"
+      },
+      {
+        "time": 3,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 15.937249639371279,
+        "detail": "observed day 2; 29.780310161265586C; storage"
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "harvest",
+        "kg": 4727
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "dispatch",
+        "kg": 4727,
+        "rupees": 8936.94,
+        "detail": "market_1; arrival 3.222934980220641; dispatch rain false"
+      },
+      {
+        "time": 3.183824793164128,
+        "lotId": 8,
+        "type": "spoilage",
+        "kg": 34.63043638137696,
+        "detail": "observed day 3; 28.522686188870704C; transit"
+      },
+      {
+        "time": 3.183824793164128,
+        "lotId": 8,
+        "type": "settlement",
+        "kg": 4686.232270704178,
+        "rupees": 162002.27,
+        "detail": "day 3; 34.56983269805787/kg"
+      },
+      {
+        "time": 3.222934980220641,
+        "lotId": 18,
+        "type": "spoilage",
+        "kg": 67.79615299915655,
+        "detail": "observed day 3; 31.114035956007413C; transit"
+      },
+      {
+        "time": 3.222934980220641,
+        "lotId": 18,
+        "type": "settlement",
+        "kg": 4659.203847000844,
+        "rupees": 180719.09,
+        "detail": "day 3; 38.787546793274394/kg"
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "harvest",
+        "kg": 2566
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "dispatch",
+        "kg": 2566,
+        "rupees": 1961.23,
+        "detail": "market_4; arrival 4.189414109597459; dispatch rain false"
+      },
+      {
+        "time": 4,
+        "lotId": 10,
+        "type": "harvest",
+        "kg": 3233
+      },
+      {
+        "time": 4,
+        "lotId": 10,
+        "type": "decision",
+        "detail": "{\"kind\":\"infeasible\",\"candidateId\":null,\"reason\":\"No feasible candidate under Balanced policy\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 21.40717182615256,
+        "detail": "observed day 3; 31.114035956007413C; storage"
+      },
+      {
+        "time": 4,
+        "lotId": 21,
+        "type": "harvest",
+        "kg": 3862
+      },
+      {
+        "time": 4,
+        "lotId": 21,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:1\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "harvest",
+        "kg": 4055
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "dispatch",
+        "kg": 4055,
+        "rupees": 3462.64,
+        "detail": "market_0; arrival 4.192080926613942; dispatch rain false"
+      },
+      {
+        "time": 4.189414109597459,
+        "lotId": 2,
+        "type": "spoilage",
+        "kg": 142.24862787449484,
+        "detail": "observed day 4; 29.30531583456458C; transit"
+      },
+      {
+        "time": 4.189414109597459,
+        "lotId": 2,
+        "type": "settlement",
+        "kg": 2423.7513721255054,
+        "rupees": 80127.45,
+        "detail": "day 4; 33.0592707286483/kg"
+      },
+      {
+        "time": 4.192080926613942,
+        "lotId": 26,
+        "type": "spoilage",
+        "kg": 311.5288712759977,
+        "detail": "observed day 4; 30.832980347165098C; transit"
+      },
+      {
+        "time": 4.192080926613942,
+        "lotId": 26,
+        "type": "settlement",
+        "kg": 3743.4711287240025,
+        "rupees": 124497.98,
+        "detail": "day 4; 33.25736350855747/kg"
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "harvest",
+        "kg": 3686
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "dispatch",
+        "kg": 3686,
+        "rupees": 3081.08,
+        "detail": "market_1; arrival 6.191544258782318; dispatch rain true"
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "harvest",
+        "kg": 3748
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "dispatch",
+        "kg": 3748,
+        "rupees": 6998.15,
+        "detail": "market_1; arrival 5.222237174340317; dispatch rain false"
+      },
+      {
+        "time": 5,
+        "lotId": 10,
+        "type": "spoilage",
+        "kg": 1481.450971258081,
+        "detail": "observed day 4; 30.635360112856837C; ambient"
+      },
+      {
+        "time": 5,
+        "lotId": 16,
+        "type": "harvest",
+        "kg": 2413
+      },
+      {
+        "time": 5,
+        "lotId": 16,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:1\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 19.96330877475127,
+        "detail": "observed day 4; 30.832980347165098C; storage"
+      },
+      {
+        "time": 5,
+        "lotId": 21,
+        "type": "spoilage",
+        "kg": 42.38602053912929,
+        "detail": "observed day 4; 29.30531583456458C; storage"
+      },
+      {
+        "time": 5,
+        "lotId": 21,
+        "type": "dispatch",
+        "kg": 3819.6139794608707,
+        "rupees": 2732.56,
+        "detail": "market_4; arrival 5.187724745698132; dispatch rain false"
+      },
+      {
+        "time": 5.187724745698132,
+        "lotId": 21,
+        "type": "spoilage",
+        "kg": 40.67335819292732,
+        "detail": "observed day 5; 30.5438092642406C; transit"
+      },
+      {
+        "time": 5.187724745698132,
+        "lotId": 21,
+        "type": "settlement",
+        "kg": 3778.9406212679432,
+        "rupees": 122775.81,
+        "detail": "day 5; 32.489479577144635/kg"
+      },
+      {
+        "time": 5.222237174340317,
+        "lotId": 4,
+        "type": "spoilage",
+        "kg": 74.02263622438387,
+        "detail": "observed day 5; 30.498971817741733C; transit"
+      },
+      {
+        "time": 5.222237174340317,
+        "lotId": 4,
+        "type": "settlement",
+        "kg": 3673.977363775616,
+        "rupees": 120031.94,
+        "detail": "day 5; 32.67084286793732/kg"
+      },
+      {
+        "time": 6,
+        "lotId": 3,
+        "type": "spoilage",
+        "kg": 118.5410288640934,
+        "detail": "observed day 5; 27.22632021309268C; transit"
+      },
+      {
+        "time": 6,
+        "lotId": 10,
+        "type": "spoilage",
+        "kg": 831.7811097506543,
+        "detail": "observed day 5; 27.22632021309268C; ambient"
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "harvest",
+        "kg": 1539
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "dispatch",
+        "kg": 1539,
+        "rupees": 997.31,
+        "detail": "market_4; arrival 6.185953042853112; dispatch rain false"
+      },
+      {
+        "time": 6,
+        "lotId": 16,
+        "type": "spoilage",
+        "kg": 53.609973150386814,
+        "detail": "observed day 5; 30.498971817741733C; storage"
+      },
+      {
+        "time": 6,
+        "lotId": 16,
+        "type": "dispatch",
+        "kg": 2359.390026849613,
+        "rupees": 4197.78,
+        "detail": "market_1; arrival 7.218442048517844; dispatch rain true"
+      },
+      {
+        "time": 6,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 18.48188827786077,
+        "detail": "observed day 5; 30.498971817741733C; storage"
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "harvest",
+        "kg": 3429
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "dispatch",
+        "kg": 3429,
+        "rupees": 2154.2,
+        "detail": "market_1; arrival 6.185363983293006; dispatch rain false"
+      },
+      {
+        "time": 6.185363983293006,
+        "lotId": 27,
+        "type": "spoilage",
+        "kg": 168.7968112926592,
+        "detail": "observed day 6; 28.72408070740849C; transit"
+      },
+      {
+        "time": 6.185363983293006,
+        "lotId": 27,
+        "type": "settlement",
+        "kg": 3260.203188707341,
+        "rupees": 111607.17,
+        "detail": "day 6; 34.233193461391956/kg"
+      },
+      {
+        "time": 6.185953042853112,
+        "lotId": 13,
+        "type": "spoilage",
+        "kg": 112.27370201529088,
+        "detail": "observed day 6; 29.90207006958828C; transit"
+      },
+      {
+        "time": 6.185953042853112,
+        "lotId": 13,
+        "type": "settlement",
+        "kg": 1426.7262979847092,
+        "rupees": 49674.13,
+        "detail": "day 6; 34.81686154049268/kg"
+      },
+      {
+        "time": 6.191544258782318,
+        "lotId": 3,
+        "type": "spoilage",
+        "kg": 28.124650149065324,
+        "detail": "observed day 6; 28.72408070740849C; transit"
+      },
+      {
+        "time": 6.191544258782318,
+        "lotId": 3,
+        "type": "settlement",
+        "kg": 3539.3343209868412,
+        "rupees": 121162.72,
+        "detail": "day 6; 34.233193461391956/kg"
+      },
+      {
+        "time": 6.8927295433813836,
+        "lotId": 10,
+        "type": "spoilage",
+        "kg": 919.7679189912647,
+        "detail": "observed day 6; 28.72408070740849C; ambient"
+      },
+      {
+        "time": 6.8927295433813836,
+        "lotId": 10,
+        "type": "expiry",
+        "detail": "All initial mass has already been recorded as spoilage"
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "harvest",
+        "kg": 4084
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "dispatch",
+        "kg": 4084,
+        "rupees": 2925.55,
+        "detail": "market_1; arrival 7.187986413376392; dispatch rain false"
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "harvest",
+        "kg": 1664
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "dispatch",
+        "kg": 1664,
+        "rupees": 1307.64,
+        "detail": "market_4; arrival 8.190054813278758; dispatch rain true"
+      },
+      {
+        "time": 7,
+        "lotId": 16,
+        "type": "spoilage",
+        "kg": 391.94971699370154,
+        "detail": "observed day 6; 32.53743922204309C; transit"
+      },
+      {
+        "time": 7,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 33.7808921284848,
+        "detail": "observed day 6; 32.53743922204309C; storage"
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "harvest",
+        "kg": 4648
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "dispatch",
+        "kg": 4648,
+        "rupees": 8067.09,
+        "detail": "market_1; arrival 7.218321585969296; dispatch rain false"
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "harvest",
+        "kg": 2843
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "dispatch",
+        "kg": 2843,
+        "rupees": 2199.56,
+        "detail": "market_1; arrival 7.189692677150764; dispatch rain false"
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "harvest",
+        "kg": 3975
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "dispatch",
+        "kg": 3975,
+        "rupees": 2974.45,
+        "detail": "market_4; arrival 8.188937177183837; dispatch rain true"
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "harvest",
+        "kg": 1899
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "dispatch",
+        "kg": 1899,
+        "rupees": 1357.76,
+        "detail": "market_1; arrival 7.187945965813067; dispatch rain false"
+      },
+      {
+        "time": 7.187945965813067,
+        "lotId": 29,
+        "type": "spoilage",
+        "kg": 150.06795815255222,
+        "detail": "observed day 7; 31.036135967188542C; transit"
+      },
+      {
+        "time": 7.187945965813067,
+        "lotId": 29,
+        "type": "settlement",
+        "kg": 1748.9320418474479,
+        "rupees": 65347.19,
+        "detail": "day 7; 37.364052079306376/kg"
+      },
+      {
+        "time": 7.187986413376392,
+        "lotId": 0,
+        "type": "spoilage",
+        "kg": 322.80644419777263,
+        "detail": "observed day 7; 31.036135967188542C; transit"
+      },
+      {
+        "time": 7.187986413376392,
+        "lotId": 0,
+        "type": "settlement",
+        "kg": 3761.1935558022274,
+        "rupees": 140533.43,
+        "detail": "day 7; 37.364052079306376/kg"
+      },
+      {
+        "time": 7.189692677150764,
+        "lotId": 20,
+        "type": "spoilage",
+        "kg": 226.7552892310461,
+        "detail": "observed day 7; 31.036135967188542C; transit"
+      },
+      {
+        "time": 7.189692677150764,
+        "lotId": 20,
+        "type": "settlement",
+        "kg": 2616.2447107689536,
+        "rupees": 97753.5,
+        "detail": "day 7; 37.364052079306376/kg"
+      },
+      {
+        "time": 7.218321585969296,
+        "lotId": 19,
+        "type": "spoilage",
+        "kg": 463.97114673825956,
+        "detail": "observed day 7; 31.354806619911994C; transit"
+      },
+      {
+        "time": 7.218321585969296,
+        "lotId": 19,
+        "type": "settlement",
+        "kg": 4184.028853261741,
+        "rupees": 156332.27,
+        "detail": "day 7; 37.364052079306376/kg"
+      },
+      {
+        "time": 7.218442048517844,
+        "lotId": 16,
+        "type": "spoilage",
+        "kg": 57.8406255155476,
+        "detail": "observed day 7; 31.354806619911994C; transit"
+      },
+      {
+        "time": 7.218442048517844,
+        "lotId": 16,
+        "type": "settlement",
+        "kg": 1909.599684340364,
+        "rupees": 71350.38,
+        "detail": "day 7; 37.364052079306376/kg"
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "harvest",
+        "kg": 2861
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "dispatch",
+        "kg": 2861,
+        "rupees": 2534.32,
+        "detail": "market_0; arrival 8.193030211857922; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 9,
+        "type": "harvest",
+        "kg": 4924
+      },
+      {
+        "time": 8,
+        "lotId": 9,
+        "type": "decision",
+        "detail": "{\"kind\":\"infeasible\",\"candidateId\":null,\"reason\":\"No feasible candidate under Balanced policy\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "harvest",
+        "kg": 559
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_4:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "dispatch",
+        "kg": 559,
+        "rupees": 292.87,
+        "detail": "market_4; arrival 8.182259280899304; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "harvest",
+        "kg": 4137
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "dispatch",
+        "kg": 4137,
+        "rupees": 3480.36,
+        "detail": "market_0; arrival 8.191704632667347; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 15,
+        "type": "spoilage",
+        "kg": 374.203933081204,
+        "detail": "observed day 7; 26.106453712024965C; transit"
+      },
+      {
+        "time": 8,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 22.821148654119312,
+        "detail": "observed day 7; 31.354806619911994C; storage"
+      },
+      {
+        "time": 8,
+        "lotId": 17,
+        "type": "dispatch",
+        "kg": 1170.9410595881934,
+        "rupees": 2813.27,
+        "detail": "market_4; arrival 8.229572987402175; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "harvest",
+        "kg": 4843
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_0:0\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "dispatch",
+        "kg": 4843,
+        "rupees": 3219.09,
+        "detail": "market_0; arrival 8.186449057512448; dispatch rain false"
+      },
+      {
+        "time": 8,
+        "lotId": 23,
+        "type": "harvest",
+        "kg": 1243
+      },
+      {
+        "time": 8,
+        "lotId": 23,
+        "type": "decision",
+        "detail": "{\"kind\":\"infeasible\",\"candidateId\":null,\"reason\":\"No feasible candidate under Balanced policy\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 24,
+        "type": "spoilage",
+        "kg": 893.9066310082848,
+        "detail": "observed day 7; 26.106453712024965C; transit"
+      },
+      {
+        "time": 8.182259280899304,
+        "lotId": 11,
+        "type": "spoilage",
+        "kg": 23.973992263855084,
+        "detail": "observed day 8; 27.917120568169686C; transit"
+      },
+      {
+        "time": 8.182259280899304,
+        "lotId": 11,
+        "type": "settlement",
+        "kg": 535.0260077361448,
+        "rupees": 21605.69,
+        "detail": "day 8; 40.38250072804393/kg"
+      },
+      {
+        "time": 8.186449057512448,
+        "lotId": 22,
+        "type": "spoilage",
+        "kg": 70.21369210051623,
+        "detail": "observed day 8; 29.855859257535634C; transit"
+      },
+      {
+        "time": 8.186449057512448,
+        "lotId": 22,
+        "type": "settlement",
+        "kg": 4772.786307899483,
+        "rupees": 195194.64,
+        "detail": "day 8; 40.89741876266336/kg"
+      },
+      {
+        "time": 8.188937177183837,
+        "lotId": 24,
+        "type": "spoilage",
+        "kg": 212.06778585857566,
+        "detail": "observed day 8; 27.917120568169686C; transit"
+      },
+      {
+        "time": 8.188937177183837,
+        "lotId": 24,
+        "type": "settlement",
+        "kg": 2869.0255831331397,
+        "rupees": 115858.43,
+        "detail": "day 8; 40.38250072804393/kg"
+      },
+      {
+        "time": 8.190054813278758,
+        "lotId": 15,
+        "type": "spoilage",
+        "kg": 89.30018146987706,
+        "detail": "observed day 8; 27.917120568169686C; transit"
+      },
+      {
+        "time": 8.190054813278758,
+        "lotId": 15,
+        "type": "settlement",
+        "kg": 1200.4958854489191,
+        "rupees": 48479.03,
+        "detail": "day 8; 40.38250072804393/kg"
+      },
+      {
+        "time": 8.191704632667347,
+        "lotId": 12,
+        "type": "spoilage",
+        "kg": 63.47543249868148,
+        "detail": "observed day 8; 30.002273893218195C; transit"
+      },
+      {
+        "time": 8.191704632667347,
+        "lotId": 12,
+        "type": "settlement",
+        "kg": 4073.5245675013184,
+        "rupees": 166596.64,
+        "detail": "day 8; 40.89741876266336/kg"
+      },
+      {
+        "time": 8.193030211857922,
+        "lotId": 6,
+        "type": "spoilage",
+        "kg": 42.94279365777595,
+        "detail": "observed day 8; 29.855859257535634C; transit"
+      },
+      {
+        "time": 8.193030211857922,
+        "lotId": 6,
+        "type": "settlement",
+        "kg": 2818.057206342224,
+        "rupees": 115251.27,
+        "detail": "day 8; 40.89741876266336/kg"
+      },
+      {
+        "time": 8.229572987402175,
+        "lotId": 17,
+        "type": "spoilage",
+        "kg": 15.285033618471731,
+        "detail": "observed day 8; 30.002273893218195C; transit"
+      },
+      {
+        "time": 8.229572987402175,
+        "lotId": 17,
+        "type": "settlement",
+        "kg": 1155.6560259697217,
+        "rupees": 46668.28,
+        "detail": "day 8; 40.38250072804393/kg"
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "harvest",
+        "kg": 3253
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "decision",
+        "detail": "{\"kind\":\"deterministic\",\"candidateId\":\"market_1:0\"}"
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "dispatch",
+        "kg": 3253,
+        "rupees": 6259.44,
+        "detail": "market_1; arrival 9.223934651481148; dispatch rain false"
+      },
+      {
+        "time": 9,
+        "lotId": 9,
+        "type": "spoilage",
+        "kg": 4103.333333333333,
+        "detail": "observed day 8; 34.513259463413355C; ambient"
+      },
+      {
+        "time": 9,
+        "lotId": 23,
+        "type": "spoilage",
+        "kg": 1035.8333333333333,
+        "detail": "observed day 8; 34.513259463413355C; ambient"
+      },
+      {
+        "time": 9.223934651481148,
+        "lotId": 7,
+        "type": "spoilage",
+        "kg": 380.5536346750849,
+        "detail": "observed day 9; 31.80965066465979C; transit"
+      },
+      {
+        "time": 9.223934651481148,
+        "lotId": 7,
+        "type": "settlement",
+        "kg": 2872.446365324915,
+        "rupees": 116866.11,
+        "detail": "day 9; 40.68521990397039/kg"
+      },
+      {
+        "time": 9.466938605164296,
+        "lotId": 9,
+        "type": "spoilage",
+        "kg": 820.6666666666671,
+        "detail": "observed day 9; 30.330613948357037C; ambient"
+      },
+      {
+        "time": 9.466938605164296,
+        "lotId": 9,
+        "type": "expiry",
+        "detail": "All initial mass has already been recorded as spoilage"
+      },
+      {
+        "time": 9.466938605164296,
+        "lotId": 23,
+        "type": "spoilage",
+        "kg": 207.16666666666677,
+        "detail": "observed day 9; 30.330613948357037C; ambient"
+      },
+      {
+        "time": 9.466938605164296,
+        "lotId": 23,
+        "type": "expiry",
+        "detail": "All initial mass has already been recorded as spoilage"
+      }
+    ],
+    "reservations": [
+      {
+        "region": "South",
+        "kg": 1331,
+        "fromDay": 1,
+        "untilDay": 8
+      },
+      {
+        "region": "West",
+        "kg": 3862,
+        "fromDay": 4,
+        "untilDay": 5
+      },
+      {
+        "region": "South",
+        "kg": 2413,
+        "fromDay": 5,
+        "untilDay": 6
+      }
+    ],
+    "peakReservedKg": {
+      "North": 0,
+      "South": 3744,
+      "East": 0,
+      "West": 3862
+    }
+  },
+  "delta": {
+    "netRupees": 18376.96,
+    "spoiledKg": 3163.432225436658,
+    "kgSaved": -3163.432225436658,
+    "soldKg": -3163.4322254366707,
+    "unsoldKg": 0
+  },
+  "C": {
+    "id": "C",
+    "name": "Gemini genuine-record replay — incomplete",
+    "status": "INCOMPLETE",
+    "cohortLots": 30,
+    "evaluatedLots": 1,
+    "unevaluatedKg": 96307,
+    "classification": {
+      "missing_trace": 29,
+      "gemini_success": 1
+    },
+    "totals": null,
+    "previewTotals": {
+      "initialKg": 1202,
+      "soldKg": 1128.8651311805477,
+      "spoiledKg": 73.13486881945244,
+      "unsoldKg": 0,
+      "gross": 47855.54,
+      "transport": 1309.44,
+      "storage": 0,
+      "net": 46546.1,
+      "massErrorKg": -1.1368683772161603e-13
+    },
+    "lots": [
+      {
+        "lotId": 0,
+        "initialKg": 4084,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 1,
+        "initialKg": 1202,
+        "decision": {
+          "kind": "gemini_success",
+          "candidateId": "market_1:0",
+          "traceId": "d1f8275c-6075-44a5-8161-032bd6ad065e",
+          "traceSha256": "693e459894c5be54169860fefede9fc7a0d22a0e03563f7d26437399bae04036"
+        },
+        "predicted": {
+          "id": "market_1:0",
+          "action": "reroute",
+          "market": "market_1",
+          "marketName": "Market B",
+          "storeDays": 0,
+          "dispatchDay": 2,
+          "arrivalDay": 2.199088750492386,
+          "distanceKm": 31.125200472690867,
+          "transitHours": 4.778130011817272,
+          "expectedPrice": 42.392606857845145,
+          "saleableKg": 1128.8651311805475,
+          "spoiledKg": 73.13486881945255,
+          "remainingHours": 73.75229421554864,
+          "gross": 47855.54,
+          "transport": 1309.44,
+          "storage": 0,
+          "net": 46546.1,
+          "eligible": true,
+          "hardReasons": [],
+          "reasons": []
+        },
+        "realized": {
+          "status": "sold",
+          "actualDispatchDay": 2,
+          "arrivalDay": 2.199088750492386,
+          "settlementDay": 2,
+          "settlementPrice": 42.392606857845145,
+          "soldKg": 1128.8651311805477,
+          "spoiledKg": 73.13486881945244,
+          "unsoldKg": 0,
+          "gross": 47855.54,
+          "transport": 1309.44,
+          "storage": 0,
+          "net": 46546.1
+        }
+      },
+      {
+        "lotId": 2,
+        "initialKg": 2566,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 3,
+        "initialKg": 3686,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 4,
+        "initialKg": 3748,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 5,
+        "initialKg": 4964,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 6,
+        "initialKg": 2861,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 7,
+        "initialKg": 3253,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 8,
+        "initialKg": 4881,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 9,
+        "initialKg": 4924,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 10,
+        "initialKg": 3233,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 11,
+        "initialKg": 559,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 12,
+        "initialKg": 4137,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 13,
+        "initialKg": 1539,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 14,
+        "initialKg": 4249,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 15,
+        "initialKg": 1664,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 16,
+        "initialKg": 2413,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 17,
+        "initialKg": 1331,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 18,
+        "initialKg": 4727,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 19,
+        "initialKg": 4648,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 20,
+        "initialKg": 2843,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 21,
+        "initialKg": 3862,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 22,
+        "initialKg": 4843,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 23,
+        "initialKg": 1243,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 24,
+        "initialKg": 3975,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 25,
+        "initialKg": 4169,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 26,
+        "initialKg": 4055,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 27,
+        "initialKg": 3429,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 28,
+        "initialKg": 2522,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      },
+      {
+        "lotId": 29,
+        "initialKg": 1899,
+        "decision": {
+          "kind": "missing_trace",
+          "candidateId": null,
+          "reason": "No authentic exact-match run; inference locked"
+        },
+        "predicted": null,
+        "realized": null
+      }
+    ],
+    "ledger": [
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "harvest",
+        "kg": 4964
+      },
+      {
+        "time": 0,
+        "lotId": 5,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "harvest",
+        "kg": 4169
+      },
+      {
+        "time": 0,
+        "lotId": 25,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "harvest",
+        "kg": 2522
+      },
+      {
+        "time": 0,
+        "lotId": 28,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 1,
+        "lotId": 17,
+        "type": "harvest",
+        "kg": 1331
+      },
+      {
+        "time": 1,
+        "lotId": 17,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "harvest",
+        "kg": 1202
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "decision",
+        "detail": "{\"kind\":\"gemini_success\",\"candidateId\":\"market_1:0\",\"traceId\":\"d1f8275c-6075-44a5-8161-032bd6ad065e\",\"traceSha256\":\"693e459894c5be54169860fefede9fc7a0d22a0e03563f7d26437399bae04036\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 1,
+        "type": "dispatch",
+        "kg": 1202,
+        "rupees": 1309.44,
+        "detail": "market_1; arrival 2.199088750492386; dispatch rain false"
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "harvest",
+        "kg": 4881
+      },
+      {
+        "time": 2,
+        "lotId": 8,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "harvest",
+        "kg": 4249
+      },
+      {
+        "time": 2,
+        "lotId": 14,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 2.199088750492386,
+        "lotId": 1,
+        "type": "spoilage",
+        "kg": 73.13486881945244,
+        "detail": "observed day 2; 28.45579798105284C; transit"
+      },
+      {
+        "time": 2.199088750492386,
+        "lotId": 1,
+        "type": "settlement",
+        "kg": 1128.8651311805477,
+        "rupees": 47855.54,
+        "detail": "day 2; 42.392606857845145/kg"
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "harvest",
+        "kg": 4727
+      },
+      {
+        "time": 3,
+        "lotId": 18,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "harvest",
+        "kg": 2566
+      },
+      {
+        "time": 4,
+        "lotId": 2,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 10,
+        "type": "harvest",
+        "kg": 3233
+      },
+      {
+        "time": 4,
+        "lotId": 10,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 21,
+        "type": "harvest",
+        "kg": 3862
+      },
+      {
+        "time": 4,
+        "lotId": 21,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "harvest",
+        "kg": 4055
+      },
+      {
+        "time": 4,
+        "lotId": 26,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "harvest",
+        "kg": 3686
+      },
+      {
+        "time": 5,
+        "lotId": 3,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "harvest",
+        "kg": 3748
+      },
+      {
+        "time": 5,
+        "lotId": 4,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 5,
+        "lotId": 16,
+        "type": "harvest",
+        "kg": 2413
+      },
+      {
+        "time": 5,
+        "lotId": 16,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "harvest",
+        "kg": 1539
+      },
+      {
+        "time": 6,
+        "lotId": 13,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "harvest",
+        "kg": 3429
+      },
+      {
+        "time": 6,
+        "lotId": 27,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "harvest",
+        "kg": 4084
+      },
+      {
+        "time": 7,
+        "lotId": 0,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "harvest",
+        "kg": 1664
+      },
+      {
+        "time": 7,
+        "lotId": 15,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "harvest",
+        "kg": 4648
+      },
+      {
+        "time": 7,
+        "lotId": 19,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "harvest",
+        "kg": 2843
+      },
+      {
+        "time": 7,
+        "lotId": 20,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "harvest",
+        "kg": 3975
+      },
+      {
+        "time": 7,
+        "lotId": 24,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "harvest",
+        "kg": 1899
+      },
+      {
+        "time": 7,
+        "lotId": 29,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "harvest",
+        "kg": 2861
+      },
+      {
+        "time": 8,
+        "lotId": 6,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 9,
+        "type": "harvest",
+        "kg": 4924
+      },
+      {
+        "time": 8,
+        "lotId": 9,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "harvest",
+        "kg": 559
+      },
+      {
+        "time": 8,
+        "lotId": 11,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "harvest",
+        "kg": 4137
+      },
+      {
+        "time": 8,
+        "lotId": 12,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "harvest",
+        "kg": 4843
+      },
+      {
+        "time": 8,
+        "lotId": 22,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 8,
+        "lotId": 23,
+        "type": "harvest",
+        "kg": 1243
+      },
+      {
+        "time": 8,
+        "lotId": 23,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "harvest",
+        "kg": 3253
+      },
+      {
+        "time": 9,
+        "lotId": 7,
+        "type": "decision",
+        "detail": "{\"kind\":\"missing_trace\",\"candidateId\":null,\"reason\":\"No authentic exact-match run; inference locked\"}"
+      }
+    ],
+    "reservations": [],
+    "peakReservedKg": {
+      "North": 0,
+      "South": 0,
+      "East": 0,
+      "West": 0
+    },
+    "evidence": {
+      "traceId": "d1f8275c-6075-44a5-8161-032bd6ad065e",
+      "traceSha256": "693e459894c5be54169860fefede9fc7a0d22a0e03563f7d26437399bae04036",
+      "model": "gemini-3.1-flash-lite",
+      "source": "google-genai",
+      "usage": {
+        "modelRequests": 2,
+        "inputTokens": 11403,
+        "outputTokens": 152
+      },
+      "inferenceCallsThisEvaluation": 0,
+      "cohortComparable": false,
+      "limitation": "One isolated exact-match replay; missing lots have no assigned actions. Unknown shared-resource interactions prevent a complete cohort comparison. Missing, failed and fallback decisions are not Gemini successes."
+    }
+  }
+}

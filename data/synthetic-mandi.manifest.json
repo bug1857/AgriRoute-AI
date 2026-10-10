@@ -1,0 +1,17 @@
+{
+  "kind": "SYNTHETIC",
+  "label": "Synthetic Mandi Data — For Demonstration",
+  "generatorVersion": "agriroute.synthetic-mandi.v1",
+  "seed": 20261010,
+  "startDate": "2026-01-01",
+  "endDate": "2026-12-31",
+  "days": 365,
+  "assumptions": [
+    "Invented price ranges and seasonal phases; no official observations or agronomic calibration",
+    "Deterministic daily fluctuations, seven-day cycles, annual seasonality and seeded 4–9 day glut discounts",
+    "Fictional scenario locations; modeled distance is haversine × 1.3, not genuine road routing",
+    "Weather is generated independently; storage/usable-life inputs are declared prototype assumptions"
+  ],
+  "rows": 4380,
+  "sha256": "080af6034f0480625084362ef6681d11a1fb10cdc1c6cae08ebebe3a8ef262fc"
+}

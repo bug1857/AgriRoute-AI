@@ -1,0 +1,12 @@
+{
+  "experimentId": "6a1cacf24f72c39a0bc3acab281a896b3343277ff5658aed75a42c06031df5d9",
+  "artifactSha256": "974bcbed112593026a6158d07ed95125265f690b7f1ddef4ffd7eac97ac95f69",
+  "identifiers": {
+    "fixtureSha256": "a6df67a925f9e4de968c9baa455bcad67baa47e46b1fffca210c7d6c07961659",
+    "geographySha256": "c395ea4f1afbedb4735e7ba82fe1d5e74feb493155a4da21cdfb80b82c84a990",
+    "plannerSha256": "8d8d1390209f40eaec8685eb7e335ff86c57a7fb4bfaedcda4729f232b0446b4",
+    "simulatorSha256": "9be63dddd26aba5d27018c0f10241fe8f3b7b5a4b0c58733555175c4ca992428",
+    "replayAdapterSha256": "bf3a48f9bdacbcfd2b2870bfddccaca74982cbabe5037724ef8ed55a6206888e"
+  },
+  "policyCStatus": "INCOMPLETE"
+}
