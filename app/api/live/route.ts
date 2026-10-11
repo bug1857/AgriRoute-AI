@@ -1,9 +1,10 @@
 import { calculateLive,object,validateLiveInput } from "@/lib/live";
 import { collectLiveEvidence,recalledEvidence,rememberEvidence } from "@/lib/live-providers";
 import { liveLocations } from "@/lib/live-locations";
+import { requireLocal } from "@/lib/local-api";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
-function local(request:Request){const url=new URL(request.url),origin=request.headers.get("origin");return ["localhost","127.0.0.1"].includes(url.hostname)&&url.port==="3010"&&(!origin||origin===url.origin);}
+function local(request:Request){try{requireLocal(request);return true;}catch{return false;}}
 export async function GET(request:Request){if(!local(request))return Response.json({error:"Local demo only"},{status:403});return Response.json({mode:"LIVE_ASSISTED",locations:liveLocations,mandiDeferred:true,now:new Date().toISOString()},{headers:{"Cache-Control":"no-store"}});}
 export async function POST(request:Request){
   if(!local(request))return Response.json({error:"Local demo only"},{status:403});

@@ -7,6 +7,12 @@ import { GET,POST } from '../app/api/live/route';
 // Mock evidence exercises calculations; these are not provider observations or real quotes.
 const now=Date.parse('2026-10-10T12:00:00Z'),iso=(hours=0)=>new Date(now+hours*3600000).toISOString();
 const origin={lat:26.92,lng:75.78};
+test('live HTTP accepts browser origin after Next host normalization, but rejects foreign origins and hosts',async()=>{
+  const headers={Host:'127.0.0.1:3010',Origin:'http://127.0.0.1:3010','Content-Type':'application/json'};
+  assert.equal((await GET(new Request('http://localhost:3010/api/live',{headers}))).status,200);
+  assert.equal((await POST(new Request('http://localhost:3010/api/live',{method:'POST',headers,body:'{}'}))).status,400);
+  for(const patch of [{Origin:'https://foreign.invalid'},{Host:'foreign.invalid'}])assert.equal((await POST(new Request('http://localhost:3010/api/live',{method:'POST',headers:{...headers,...patch},body:'{}'}))).status,403);
+});
 function input():LiveInput{
   const q={source:'Test buyer/carrier quote',reviewed:true,status:'confirmed' as const,quotedAt:iso(-1),expiresAt:iso(100)};
   return {origin:{...origin},markets:[{id:'muhana',point:{lat:26.84,lng:75.76}},{id:'chomu',point:{lat:27.17,lng:75.72}}],coordinatesReviewed:true,inputsReviewed:true,kg:1000,variety:'Local',lifeDays:5,risk:'balanced',departAt:iso(),holdDays:1,handlingHours:4,marketFeePercent:0,otherDeductions:0,carrier:{...q,rate:.035,capacityKg:1000,availableAt:iso()},storage:{...q,rate:.3,capacityKg:1000,tempC:5,maxDays:2},prices:[{...q,marketId:'muhana',perKg:20,basis:'buyer_offer'},{...q,marketId:'chomu',perKg:20,basis:'buyer_offer'}]};
