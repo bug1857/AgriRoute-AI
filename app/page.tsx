@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Check, CloudSun, Leaf, MapPin, MoveUpRight, Route, Sprout } from "lucide-react";
 import Header from "@/components/Header";
-import JuryDemo from "@/components/JuryDemo";
 import { world, geo, money, quantity, cropLabels, source } from "@/lib/world";
 import { actionLabels, planLot } from "@/lib/planner";
 
@@ -18,7 +17,7 @@ export default function Home() {
         <h1>Every harvest.<br/>A better way<br/><em>forward.</em></h1>
         <p>Your produce has a window. Make it count.<br/>Compare when to sell, where to go, and whether<br className="desktop-break"/> to store—with every rupee explained.</p>
         <div className="hero-actions"><Link href="/demo" className="button-lime">Explore the demo <ArrowUpRight size={20}/></Link><a href="#methodology" className="button-glass">See how it works <ArrowRight size={18}/></a></div>
-        <div className="hero-note"><Check size={14}/> Transparent calculations <span/> Reproducible synthetic data <span/><Link href="#jury-demo">Jury demo · no sign-in</Link></div>
+        <div className="hero-note"><Check size={14}/> Transparent calculations <span/> Reproducible synthetic data</div>
       </div>
       <div className="harvest-preview">
         <div className="preview-heading"><span><Leaf size={17}/> HARVEST SNAPSHOT</span><span className="tiny-pill">SEED 42</span></div>
@@ -35,6 +34,5 @@ export default function Home() {
       <article><span className="step-number">03</span><Leaf size={25}/><h3>Know what changes</h3><p>Move the risk slider or stress-test prices and delays. Watch actual eligibility and financial calculations respond.</p></article>
     </div></section>
     <section className="source-strip"><span className="source-icon"><Check size={21}/></span><div><strong>A small world. Fully reproducible.</strong><p>{quantity(source.total_kg)} kg across 30 synthetic lots. Five markets. Original seed 42. No invented farmer impact or AI results.</p></div><Link href="/demo">Open Demo Lab <ArrowUpRight size={19}/></Link></section>
-    <JuryDemo/>
   </main><footer className="site-footer"><span>© 2026 AgriRoute AI</span><span>Illustrative synthetic model · Gemini evidence in the Demo Lab</span><a href="https://images.unsplash.com/photo-1500382017468-9049fed747ef" target="_blank" rel="noreferrer">Landscape: Unsplash</a></footer></>;
 }
