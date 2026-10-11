@@ -5,9 +5,11 @@ import { requireLocal } from "@/lib/local-api";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
 function local(request:Request){try{requireLocal(request);return true;}catch{return false;}}
-export async function GET(request:Request){if(!local(request))return Response.json({error:"Local demo only"},{status:403});return Response.json({mode:"LIVE_ASSISTED",locations:liveLocations,mandiDeferred:true,now:new Date().toISOString()},{headers:{"Cache-Control":"no-store"}});}
+function publicJurySite(request:Request){const url=new URL(request.url);return url.host==="agri-route-ai.vercel.app"&&request.headers.get("origin")===url.origin;}
+function allowed(request:Request){return local(request)||publicJurySite(request);}
+export async function GET(request:Request){if(!allowed(request))return Response.json({error:"Local demo only"},{status:403});return Response.json({mode:"LIVE_ASSISTED",locations:liveLocations,mandiDeferred:true,now:new Date().toISOString()},{headers:{"Cache-Control":"no-store"}});}
 export async function POST(request:Request){
-  if(!local(request))return Response.json({error:"Local demo only"},{status:403});
+  if(!allowed(request))return Response.json({error:"Local demo only"},{status:403});
   if(!request.headers.get("content-type")?.startsWith("application/json"))return Response.json({error:"JSON required"},{status:415});
   const reader=request.body?.getReader();if(!reader)return Response.json({error:"Body required"},{status:400});
   const chunks:Uint8Array[]=[];let size=0;

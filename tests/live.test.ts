@@ -11,6 +11,9 @@ test('live HTTP accepts browser origin after Next host normalization, but reject
   const headers={Host:'127.0.0.1:3010',Origin:'http://127.0.0.1:3010','Content-Type':'application/json'};
   assert.equal((await GET(new Request('http://localhost:3010/api/live',{headers}))).status,200);
   assert.equal((await POST(new Request('http://localhost:3010/api/live',{method:'POST',headers,body:'{}'}))).status,400);
+  const juryHeaders={Host:'agri-route-ai.vercel.app',Origin:'https://agri-route-ai.vercel.app','Content-Type':'application/json'};
+  assert.equal((await GET(new Request('https://agri-route-ai.vercel.app/api/live',{headers:juryHeaders}))).status,200);
+  assert.equal((await POST(new Request('https://agri-route-ai.vercel.app/api/live',{method:'POST',headers:juryHeaders,body:'{}'}))).status,400);
   for(const patch of [{Origin:'https://foreign.invalid'},{Host:'foreign.invalid'}])assert.equal((await POST(new Request('http://localhost:3010/api/live',{method:'POST',headers:{...headers,...patch},body:'{}'}))).status,403);
 });
 function input():LiveInput{
