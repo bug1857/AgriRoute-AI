@@ -1,7 +1,6 @@
 "use client";
 import WhatIfAnalysis from './WhatIfAnalysis';
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { ArrowDownRight, ArrowUpRight, Check, ChevronDown, CloudRain, CloudSun, Download, FlaskConical, Info, Leaf, MapPin, RotateCcw, Route, ShieldCheck, SlidersHorizontal, Snowflake, Sprout, Timer, Wheat } from "lucide-react";
 import LotMap from "./LotMap";
 import AgentPanel from "./AgentPanel";
@@ -48,7 +47,7 @@ export default function Explorer({initialId}: {initialId?:number}) {
     const anchor=document.createElement("a");anchor.href=url;anchor.download=`agriroute-lot-${id+1}-quote.json`;anchor.click();URL.revokeObjectURL(url);setExportStatus("Quote downloaded; no record was saved to the cloud.");
   }
   return <div className="explorer-shell">
-    <div className="demo-title"><div><span className="eyebrow">THE DEMO LAB <span className="eyebrow-line"/> ORIGINAL PROJECT 1</span><h1>Your harvest. <em>Your next move.</em></h1><p>Explore the trade-offs. Follow the numbers. Choose with clarity.</p></div><div className="demo-title-actions"><Link href="/live" className="button-outline">Live assisted ↗</Link><Link href="/mandi" className="button-outline">Synthetic mandi ↗</Link><span className="synthetic-badge"><FlaskConical size={14}/> Synthetic world · seed 42</span><button className="button-outline" onClick={reset}><RotateCcw size={15}/> Reset demo</button></div></div>
+    <div className="demo-title"><div><span className="eyebrow">THE DEMO LAB <span className="eyebrow-line"/> ORIGINAL PROJECT 1</span><h1>Your harvest. <em>Your next move.</em></h1><p>Explore the trade-offs. Follow the numbers. Choose with clarity.</p></div><div className="demo-title-actions"><span className="synthetic-badge"><FlaskConical size={14}/> Synthetic world · seed 42</span><button className="button-outline" onClick={reset}><RotateCcw size={15}/> Reset demo</button></div></div>
     <div className="lab-overview"><div><Wheat size={20}/><span><strong>{visible.length}</strong> lots in view</span></div><div><Leaf size={20}/><span><strong>{quantity(visible.reduce((s,l)=>s+l.kg,0))}</strong> kg harvested</span></div><div><Timer size={20}/><span><strong>{urgentCount}</strong> lots within 48h usable life</span></div><span className="overview-caption">Harvest-day snapshots · fictional Jaipur-area locations</span></div>
     <div className="explorer-grid">
       <section className="harvest-panel" aria-label="Harvest lot selection"><div className="panel-heading"><div><span className="eyebrow">01 / EXPLORE</span><h2>The harvest landscape</h2></div><MapPin size={21}/></div>

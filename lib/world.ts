@@ -1,4 +1,4 @@
-import fixture from "@/data/world.json";
+import fixtureText from "@/data/world-source";
 import geography from "@/data/geography.json";
 import provenance from "@/data/provenance.json";
 
@@ -12,7 +12,8 @@ export type World = {
   storage: { region: string; capacity_kg: number; cost_per_kg_day: number }[];
 };
 export type Geography = typeof geography;
-export const world = fixture as World;
+// JSON module bundling rounded seed-42 floats; parse the exact frozen text in both runtimes.
+export const world = JSON.parse(fixtureText) as World;
 export const geo = geography;
 export const source = provenance;
 export const cropLabels: Record<Crop, string> = { tomato: "Tomato", onion: "Onion", mango: "Mango", potato: "Potato" };
