@@ -1,15 +1,14 @@
 import { calculateLive,object,validateLiveInput } from "@/lib/live";
 import { collectLiveEvidence,recalledEvidence,rememberEvidence } from "@/lib/live-providers";
 import { liveLocations } from "@/lib/live-locations";
-import { requireLocal } from "@/lib/local-api";
+import { isHostedRequest, requireLocal } from "@/lib/local-api";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
-function local(request:Request){try{requireLocal(request);return true;}catch{return false;}}
-function publicJurySite(request:Request){const url=new URL(request.url);return url.host==="agri-route-ai.vercel.app"&&request.headers.get("origin")===url.origin;}
-function allowed(request:Request){return local(request)||publicJurySite(request);}
-export async function GET(request:Request){if(!allowed(request))return Response.json({error:"Local demo only"},{status:403});return Response.json({mode:"LIVE_ASSISTED",locations:liveLocations,mandiDeferred:true,now:new Date().toISOString()},{headers:{"Cache-Control":"no-store"}});}
+function allowed(request:Request){try{requireLocal(request);return true;}catch{return false;}}
+export async function GET(request:Request){if(!allowed(request))return Response.json({error:"Unauthorized host or origin"},{status:403});return Response.json({mode:"LIVE_ASSISTED",locations:liveLocations,mandiDeferred:true,now:new Date().toISOString()},{headers:{"Cache-Control":"no-store"}});}
 export async function POST(request:Request){
-  if(!allowed(request))return Response.json({error:"Local demo only"},{status:403});
+  if(!allowed(request))return Response.json({error:"Unauthorized host or origin"},{status:403});
+  if(isHostedRequest(request))return Response.json({error:"Live Assisted provider refresh and in-memory evidence replay are temporarily unavailable on hosted serverless. Use the local workflow until durable, authenticated evidence storage is implemented."},{status:423,headers:{"Cache-Control":"no-store"}});
   if(!request.headers.get("content-type")?.startsWith("application/json"))return Response.json({error:"JSON required"},{status:415});
   const reader=request.body?.getReader();if(!reader)return Response.json({error:"Body required"},{status:400});
   const chunks:Uint8Array[]=[];let size=0;

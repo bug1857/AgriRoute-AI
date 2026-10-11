@@ -1,51 +1,120 @@
-# AgriRoute AI · Round 2 prototype
+<div align="center">
 
-**Licence scope:** The MIT licence applies only to original AgriRoute AI source code developed with Codex assistance, to the extent the project owner holds licensing rights. Third-party assets, dependencies, services, datasets and non-code material are excluded. See [LICENSE_SCOPE.md](LICENSE_SCOPE.md).
+# AgriRoute AI
 
-Original Project 1 synthetic world with a premium website, deterministic planner and genuine server-side Gemini function calling. The seed-42 shared-capacity 30-day A/B evaluation is frozen. One original isolated Gemini run and one newly verified shared-capacity run are stored locally; the comparable Policy C cohort remains **INCOMPLETE at 1/30**, with further inference locked. Coordinator approvals persist in PostgreSQL and feed the authorized Hindi Farmer View. Farmer/Coordinator navigation and a device-saved dark/light theme are available. The original Demo Lab prices, weather, farms, markets, storage availability and transport estimates are synthetic. Quote results are estimates, not realized benefits.
+### Evidence-led harvest-to-market decision support
 
-Use Node.js 24 and PostgreSQL. Copy the template, then configure `DATABASE_URL` for an existing database. For a fresh local macOS database, leave `DATABASE_URL` absent: `setup_database.ts` expects Homebrew PostgreSQL executables in `/opt/homebrew/bin`, provisions a dedicated cluster on port 55432 and writes ignored local account credentials. If that cluster already exists, restore its existing connection configuration; do not reinitialize it. Gemini is optional for local replay/planning and no provider calls are made by setup or tests.
+**Commit for Good · Round 2 · Research prototype**
 
-```sh
+A transparent system for comparing **SELL NOW**, **STORE**, and **REROUTE** decisions using explicit assumptions, deterministic calculations, and reviewable evidence.
+
+[**Explore the live prototype**](https://agri-route-ai.vercel.app) · [**System architecture**](docs/ARCHITECTURE.md) · [**Project structure**](docs/PROJECT_STRUCTURE.md) · [**Run locally**](docs/LOCAL_DEVELOPMENT.md) · [**Evaluation**](docs/EVALUATION.md) · [**Deployment and limits**](docs/DEPLOYMENT_AND_LIMITATIONS.md)
+
+</div>
+
+---
+
+> [!IMPORTANT]
+> **Research prototype, not a live agricultural advisory or booking service.** The original benchmark and Mandi Lab use explicitly **synthetic data**. Weather/route evidence used by the separate local Live Assisted workflow has operational limits. Estimates are not realized farmer earnings. Some features work locally but are intentionally restricted on Vercel; see [deployment boundaries](docs/DEPLOYMENT_AND_LIMITATIONS.md).
+
+## The research question
+
+**Which harvest decision produces the best feasible expected net proceeds—not merely the highest quoted price?**
+
+A higher market price may be offset by transport, storage fees, delay, quality loss, and the remaining usable life of produce. AgriRoute evaluates those trade-offs while retaining a human review step for operational decisions.
+
+## Explore the workspaces
+
+| Workspace | What it demonstrates | Current boundary |
+| --- | --- | --- |
+| [**Demo Lab**](https://agri-route-ai.vercel.app/demo) | Interactive seed-42 lots, maps, eligibility, candidate comparisons, sensitivity analysis, saved trace inspection | Frozen synthetic research data; not live prices |
+| [**Mandi Lab**](https://agri-route-ai.vercel.app/mandi) | Reproducible fictional market series, forecasts, scenario planning, and illustrated buyer terms | Clearly labelled synthetic market data; hosted anonymous offer writes are disabled |
+| [**Live Assisted**](https://agri-route-ai.vercel.app/live) | Separate Jaipur-tomato weather/road evidence workflow with explicit input assumptions | Hosted provider refresh/recalculation currently locked; full local workflow is separate |
+| [**Coordinator**](https://agri-route-ai.vercel.app/coordinator) | Role-restricted lot planning, buyer-term review, approval and audit trail | Requires configured PostgreSQL and an authorized account |
+| [**Farmer View**](https://agri-route-ai.vercel.app/farmer) | Hindi projection of an assigned, approved decision | Not an anonymous public record; authenticated access required |
+
+## System at a glance
+
+```mermaid
+flowchart LR
+  User["Farmer / Coordinator"] --> UI["Next.js workspaces"]
+  UI --> API["Validated API routes"]
+  API --> Planner["Deterministic planner + what-if"]
+  Planner --> Result["Feasible candidate + financial breakdown"]
+  API --> Auth["Session + role / tenant checks"]
+  Auth --> DB[("PostgreSQL: lots, offers, approvals, audit")]
+  Local["Authorized local Gemini tool-calling"] --> Planner
+  Evidence["Synthetic fixtures / reviewed evidence"] --> Planner
+  Result --> Review["Human review and approval"]
+  Review --> DB
+```
+
+Gemini is a **bounded decision-selection layer**, not the source of invented financial figures: the server validates tools, candidate eligibility, calculated amounts, and saved trace provenance. One authentic shared-capacity tool-calling run is documented; a comparable full 30-lot Gemini cohort has **not** been completed. [Architecture and trust boundaries →](docs/ARCHITECTURE.md)
+
+## Repository map
+
+```text
+app/             Next.js pages and server API routes
+components/      Interactive demo, coordinator, farmer, live and mandi UI
+lib/             Planning, simulation, tool calling, authorization and storage
+data/            Frozen seed-42 world and separate synthetic Mandi fixtures
+scripts/         Setup, fixture checks, replay and evaluation tools
+tests/           Node tests plus Playwright browser journeys
+public/          Bundled UI asset and frozen public evaluation artifacts
+docs/            Architecture, structure, local setup and research notes
+```
+
+[**Explore the annotated file structure →**](docs/PROJECT_STRUCTURE.md)
+
+## Quick start
+
+**Requirements:** Node.js 24, npm, and PostgreSQL for coordinator workflows. The optional fresh-database helper supports a local Homebrew PostgreSQL installation on Apple Silicon.
+
+```bash
+git clone https://github.com/bug1857/AgriRoute-AI.git
+cd AgriRoute-AI
 npm ci
-cp .env.example .env.local # configure your database; never commit keys
-node --env-file=.env.local --import tsx scripts/setup_database.ts
-npm run dev # http://127.0.0.1:3010
-npm test
-npm run lint
-npm run build
-npm run evaluate:check # frozen A/B reproduction; never overwrite the frozen artifact
-npm run test:server # running local server required; no inference
-npm run test:browser # installed Playwright Chromium and running local server required
+cp .env.example .env.local
+# Configure your own local DATABASE_URL, or follow the fresh macOS setup guide.
+npm run dev
 ```
 
-Fixture generation uses NumPy (recorded version in `data/provenance.json`); independent DOCX comparison also needs pandas. The bundled Codex Python runtime contains both.
+Open **http://127.0.0.1:3010**. Do not overwrite an existing `.env.local` or reinitialize an existing PostgreSQL cluster. See [local setup, database initialization, and test prerequisites](docs/LOCAL_DEVELOPMENT.md) before running account workflows.
 
-```sh
-python3 scripts/generate_world.py --check
-python3 scripts/verify_original.py
-```
+## Experimental evidence
 
-Read `PLAN.md` for the declared policy/model assumptions. UI reference files are design references only; no old project code was copied. Deployment and authenticated cloud persistence are not configured. Paid provider spend is not authorized.
+The public frozen evaluation compares a nearest-market baseline (**Policy A**) with the deterministic feasible planner (**Policy B**) across the same **30 synthetic lots over 30 simulated days**.
 
-Gemini uses the official `@google/genai` SDK and `gemini-3.1-flash-lite`. The key belongs only in ignored `.env.local`. Free tier, billing disabled and model quota must be freshly verified in ignored `private/free-tier-verification.json` (deliberately disabled template supplied). Model metadata is checked before generation; auto retries are disabled. A persistent exclusive claim limits this checkpoint to its authorized live attempt. Each run allows six individual tool requests and at most seven model requests. Current live allowance is consumed; authentic replay calls no inference API. No general public agent endpoint: local host and same-origin access only.
+| Frozen evaluation metric | Policy A | Policy B |
+| --- | ---: | ---: |
+| Realized simulated net proceeds | ₹2,929,253.23 | ₹2,947,630.19 |
+| Modeled spoiled produce | 12,258.67 kg | 15,422.10 kg |
+| Cohort completion | 30/30 | 30/30 |
 
-Versioned records in `private/traces` contain actual SDK requests/responses, tool arguments/results/timestamps, original inputs, fixture/context hashes, server-selected candidate values and explicit failure/fallback status. Local HMAC detects record modification; it is not a Google signature or authenticated cloud persistence. Changed controls never relabel an old trace. Mocked tests cannot enter the genuine replay store. Before inference, storage is checked; progress is recorded before another model request. Disk failures remain possible and must never be disguised as successful saved runs.
+Policy B yields **₹18,376.96 more simulated net proceeds**, **alongside 3,163.43 kg more modeled spoilage**. This is not a claim of reduced food waste or measured field impact.
 
-See `FINAL-COMPLETION.md` for the completion gate and `ONE-LOT-VERIFICATION.md` for the subsequent genuine shared-capacity run. Verification: 94 unit/integration tests and 12 Chromium browser tests passed; typecheck, lint and production build passed. The subsequent one-lot run also passed fresh-process trace/financial/conservation replay and focused browser acceptance. Older checkpoint/browser documents are historical, not the current acceptance status. Private traces, screenshots, account passwords and PostgreSQL files are intentionally excluded from this repository; a fresh clone does not contain those local records.
+**Policy C (Gemini): incomplete at 1/30.** The authentic run demonstrates bounded tool calls and server-validated candidate selection, but a comparable full-cohort Gemini uplift has **not** been established.
 
-Open `/coordinator` to create, plan and review lots; approved immutable snapshots are visible to the assigned farmer through `/farmer`. Confirmed buyer terms require human review before influencing the planner. Sign-in sessions, tenant/role checks, protected exports and append-only review history are database-backed. Fresh local provisioning saves account credentials only in ignored `private/local-accounts.json`. A hosted PostgreSQL service, HTTPS/production origin and controlled evidence storage are required before deployment.
+The last fully integrated local verification (11 October 2026) reported **97/97 Node tests** and **14/14 Playwright browser tests** passing, plus typecheck, build and frozen-evaluation checks. These are *local test results*, not production-service acceptance.
 
-`node --env-file=.env.local --import tsx scripts/cohort.ts` verifies saved shared-capacity records without inference. Captures require a purpose-specific human approval, fresh free-tier/billing-disabled/quota proof and an exact lot/request budget. Further routing and buyer-extraction inference remain locked; do not run `--capture-next` without approval. Current shared cohort: one successful lot, zero failures/mismatches; full Policy C totals remain withheld. The original isolated trace is never relabelled as a shared-capacity result.
+[**Experiment design, provenance, commands and limitations →**](docs/EVALUATION.md)
 
-Hero landscape: Unsplash image `photo-1500382017468-9049fed747ef`, stored locally to avoid a runtime image dependency. Fonts: locally bundled Manrope from Fontsource. Map tiles: OpenStreetMap, normal interactive viewing with attribution; no offline prefetch. Fictional lot markers remain interactive without the basemap.
+## Documentation
 
-Checkpoint 4 adds `/live`: a separate LIVE_ASSISTED Jaipur-tomato workflow using free noncommercial Open-Meteo forecasts and OSRM road geometry, with source timestamps and response hashes. Actual farm/market-gate coordinates and operational quotes require human review; defaults are geographic locators. Weather delay/spoilage are declared, uncalibrated prototype assumptions. Human prices, storage and carrier availability remain conditional until reviewed/confirmed; no bookings or guaranteed sale proceeds.
+| Guide | What you will find |
+| --- | --- |
+| [Architecture](docs/ARCHITECTURE.md) | Component diagram, API boundaries, role-restricted workflow, Gemini tool-calling and evidence flow |
+| [Project structure](docs/PROJECT_STRUCTURE.md) | Actual folders and the purpose of the major modules |
+| [Local development](docs/LOCAL_DEVELOPMENT.md) | Requirements, safe database setup, running the server and test commands |
+| [Evaluation and reproducibility](docs/EVALUATION.md) | Frozen A/B results, trace coverage, independent checks and research caveats |
+| [Deployment and limitations](docs/DEPLOYMENT_AND_LIMITATIONS.md) | Vercel/Neon configuration, hosted restrictions and remaining acceptance gates |
 
-Official OGD/AGMARKNET fetching is out of scope for this release. LIVE_ASSISTED continues using explicitly reviewed manual prices, with no synthetic price substitution and no Gemini inference. Fetch weather/road evidence explicitly; recalculation uses a server-owned snapshot without provider calls. Its browser-local saving remains labelled “Saved on this device.” Restoring requires fresh evidence. Private exports must not be published as real farmer impact.
+Earlier checkpoint and implementation notes remain in the repository as historical evidence; they are not automatically up-to-date production-status statements.
 
-`node --env-file=.env.local --import tsx scripts/verify_live.ts` performs one free weather/two-route refresh plus server recalculation checks, saving a private evidence example with clearly declared verification assumptions. Do not run repeatedly just to refresh a timestamp. See `CHECKPOINT-4.md` for the captured run and provider/licence limits.
+## Responsible use and licensing
 
-`/mandi` is a separate **Synthetic Mandi Data — For Demonstration** workspace: seed 20261010, four crops × three Rajasthan-inspired fictional market scenarios × 365 dates. History, trends, bounded forecasts and financial/feasibility recalculation use generated data, never LIVE_ASSISTED observations. The original seed-42 world and frozen A/B artifacts are unchanged. `node --import tsx scripts/generate_mandi.ts --check` verifies exact fixture bytes; omit `--check` only to intentionally regenerate this separate fixture.
+- The application keeps provider keys, passwords, signing material, private evidence receipts and local PostgreSQL files **outside Git**. Never commit `.env.local` or `private/`.
+- Hosted Gemini generation, public authentic traces, anonymous memory-backed offer writes, and hosted Live Assisted refresh remain disabled until the required durable, authenticated implementation and verification exist.
+- See [`LICENSE_SCOPE.md`](LICENSE_SCOPE.md) and [`ACKNOWLEDGEMENTS.md`](ACKNOWLEDGEMENTS.md). The repository's MIT grant covers only the original source code for which its owner has licensing rights; third-party assets, services, dependencies, datasets and non-code materials retain their own terms.
 
-The Mandi Lab Buyer offers tab retains its visibly labelled local rule-based Hindi/English/Hinglish parser and manual fallback; its temporary reviews expire after 30 minutes and clear on server restart. The protected Coordinator Reviewed buyer offers workflow separately persists drafts, human corrections/confirmations, withdrawal, expiry and evidence in PostgreSQL. Only authorized human-confirmed terms affect that planner. An official Gemini SDK extraction adapter is implemented and tested with injected mocks, but genuine extraction remains locked pending separate authorization. No independently verified buyer commitment or authenticated cloud persistence is claimed. `node --import tsx scripts/smoke_mandi.ts` checks the running local Mandi workflow without external provider calls.
+**Repository:** [github.com/bug1857/AgriRoute-AI](https://github.com/bug1857/AgriRoute-AI) · **Prototype:** [agri-route-ai.vercel.app](https://agri-route-ai.vercel.app)

@@ -1,16 +1,14 @@
 import { agentReadiness, runGemini } from "@/lib/gemini-server";
+import { isHostedRequest, requireLocal } from "@/lib/local-api";
 import { latestTrace, loadTrace } from "@/lib/agent-store";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
 
-function local(request:Request) {
-  const url=new URL(request.url);
-  if(!["127.0.0.1","localhost"].includes(url.hostname)||url.port!=="3010")return false;
-  const origin=request.headers.get("origin");
-  return !origin||origin===url.origin;
-}
+function allowed(request:Request){try{requireLocal(request);return true;}catch{return false;}}
+const hostedBlocker="Public deployment: Gemini inference and private authentic traces are disabled. Local verified replay remains available on the developer machine.";
 export async function GET(request:Request) {
-  if(!local(request))return Response.json({error:"Local demo only"},{status:403});
+  if(!allowed(request))return Response.json({error:"Unauthorized host or origin"},{status:403});
+  if(isHostedRequest(request))return Response.json({ready:false,model:"gemini-3.1-flash-lite",blocker:"hosted_inference_disabled",record:null},{headers:{"Cache-Control":"no-store"}});
   try{
     const id=new URL(request.url).searchParams.get("trace");
     if(id)return Response.json({record:await loadTrace(id),mode:"authentic_replay"},{headers:{"Cache-Control":"no-store"}});
@@ -18,7 +16,8 @@ export async function GET(request:Request) {
   }catch{return Response.json({error:"Trace unavailable or failed integrity verification"},{status:409});}
 }
 export async function POST(request:Request) {
-  if(!local(request))return Response.json({error:"Local demo only"},{status:403});
+  if(!allowed(request))return Response.json({error:"Unauthorized host or origin"},{status:403});
+  if(isHostedRequest(request))return Response.json({error:hostedBlocker},{status:423,headers:{"Cache-Control":"no-store"}});
   if(!request.headers.get("content-type")?.startsWith("application/json"))return Response.json({error:"JSON required"},{status:415});
   const reader=request.body?.getReader();if(!reader)return Response.json({error:"Body required"},{status:400});
   const chunks:Uint8Array[]=[];let size=0;
