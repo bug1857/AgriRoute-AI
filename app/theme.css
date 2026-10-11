@@ -44,5 +44,4 @@ html[data-theme=dark] .site-header .role-navigation nav{background:transparent}
 .site-header a:focus-visible,.site-header button:focus-visible{outline:3px solid #819c4f;outline-offset:3px}
 @media(max-width:900px){.header-navigation{align-items:stretch;flex-direction:column;gap:12px}.site-header .header-navigation nav{width:fit-content}.site-header .role-navigation nav{width:100%}.role-navigation .nav-cta{flex:1}}
 @media(max-width:600px){.site-header .header-navigation nav a{padding:9px 12px}.site-header .role-navigation .nav-cta{padding:10px;font-size:13px;gap:8px}.role-navigation small{font-size:10px}}
-.site-header nav a.nav-jury{background:var(--lime);color:var(--deep);font-weight:800;border:1px solid #b4cf70;box-shadow:0 2px 8px #173d2b18}.site-header nav a.nav-jury:hover{background:#c8eb67;color:var(--deep)}#jury-demo{scroll-margin-top:22px}
-html[data-theme=dark] .site-header nav a.nav-jury{background:#d3f078;color:#142c20}
+#jury-demo{scroll-margin-top:22px}
