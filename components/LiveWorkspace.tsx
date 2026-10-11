@@ -41,7 +41,7 @@ export default function LiveWorkspace(){
   const [input,setInput]=useState<LiveInput|null>(null),[locations,setLocations]=useState<Locations|null>(null),[bundle,setBundle]=useState<Bundle|null>(null),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
   useEffect(()=>{const controller=new AbortController();void fetch("/api/live",{signal:controller.signal}).then(async r=>{if(!r.ok)throw new Error("Live-assisted setup unavailable");return r.json();}).then(s=>{setLocations(s.locations);setInput(initialInput(s.locations,s.now));}).catch(e=>{if(!controller.signal.aborted)setMessage(e.message);});return ()=>controller.abort();},[]);
   const roads=useMemo(()=>bundle?Object.values(bundle.evidence.routes).flatMap(e=>e.status==="AVAILABLE"&&e.data?[e.data]:[]):[],[bundle]);
-  const matches=!!bundle&&JSON.stringify(bundle.result.input)===JSON.stringify(input);
+  const matches=useMemo(()=>{try{return !!bundle&&JSON.stringify(bundle.result.input)===JSON.stringify(validateLiveInput(input));}catch{return false;}},[bundle,input]);
   const update=(value:Partial<LiveInput>)=>setInput(s=>s?{...s,...value}:s);
   function changePrice(id:MarketId,value:Partial<LiveInput["prices"][number]>){if(input)update({prices:input.prices.map(p=>p.marketId===id?{...p,...value}:p)});}
   async function request(action:"refresh"|"calculate"){

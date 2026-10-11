@@ -27,3 +27,20 @@
  html[data-theme=dark] .comparison-track i{background:#aaca77}
  html[data-theme=dark] :is(.risk-panel input,.whatif-controls input,.live-check input){accent-color:#b1d578}
 }
+.site-header{display:grid;grid-template-columns:1fr auto;height:auto;gap:12px;padding-top:16px;padding-bottom:16px}
+.site-header .brand{grid-column:1;grid-row:1}
+.site-header .header-actions{grid-column:2;grid-row:1}
+.header-navigation{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;border-top:1px solid var(--line);padding-top:12px;min-width:0}
+.workspace-navigation{min-width:0}
+.navigation-label{display:block;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.site-header .header-navigation nav{display:flex;grid-row:auto;grid-column:auto;overflow:visible;flex-wrap:wrap;max-width:none}
+.role-navigation{flex-shrink:0}
+.site-header .role-navigation nav{background:transparent;border:0;padding:0;gap:8px;border-radius:0}
+.site-header .role-navigation .nav-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 14px;border-radius:10px;font-size:13px;color:var(--ink)}
+.role-navigation small{display:block;font-size:11px;font-weight:500;margin-top:2px;color:var(--muted)}
+.site-header .role-navigation a[aria-current=page]{background:var(--forest);color:var(--ivory,#f6f8f0);border-color:var(--forest)}
+.role-navigation a[aria-current=page] small{color:inherit}
+html[data-theme=dark] .site-header .role-navigation nav{background:transparent}
+.site-header a:focus-visible,.site-header button:focus-visible{outline:3px solid #819c4f;outline-offset:3px}
+@media(max-width:900px){.header-navigation{align-items:stretch;flex-direction:column;gap:12px}.site-header .header-navigation nav{width:fit-content}.site-header .role-navigation nav{width:100%}.role-navigation .nav-cta{flex:1}}
+@media(max-width:600px){.site-header .header-navigation nav a{padding:9px 12px}.site-header .role-navigation .nav-cta{padding:10px;font-size:13px;gap:8px}.role-navigation small{font-size:10px}}

@@ -12,7 +12,7 @@ test("navigation from landing to demo and home",async({page})=>{
   await page.getByRole("link",{name:"Our approach"}).click();await expect(page).toHaveURL(/#methodology$/);
   await page.goto("/demo");await page.getByRole("tab",{name:"Gemini",exact:true}).click();await expect(page.getByTestId("agent-panel")).toBeVisible();
   await page.keyboard.press("ArrowLeft");await expect(page.getByRole("tab",{name:"Decision",exact:true})).toBeFocused();await expect(page.getByTestId("agent-panel")).not.toBeVisible();
-  await page.getByRole("link",{name:"Live assisted ↗",exact:true}).click();await expect(page).toHaveURL(/\/live$/);
+  await page.getByRole("link",{name:"Live assisted",exact:true}).click();await expect(page).toHaveURL(/\/live$/);
   await expect(page.getByRole("heading",{level:1})).toContainText("Real evidence.");await expect(page.locator(".live-banner")).toContainText("mandi fetching deferred");
   await page.getByRole("tab",{name:"Locations",exact:true}).click();await expect(page.getByText("Pickup & market gate coordinates",{exact:false})).toBeVisible();await page.getByRole("tab",{name:"Lot",exact:true}).click();
   await page.getByLabel("Exact variety").fill("Local");await page.getByRole("tab",{name:"Prices",exact:true}).click();await page.getByRole("tab",{name:"Lot",exact:true}).click();await expect(page.getByLabel("Exact variety")).toHaveValue("Local");
@@ -45,12 +45,12 @@ test("risk slider changes eligibility using actual margins",async({page})=>{
   }
 });
 test("what-if controls change the displayed calculated net",async({page})=>{
-  await page.goto(url);await page.getByLabel("Market price change").fill("-20");await page.getByLabel("Additional rain delay").selectOption("1");await page.getByLabel("Storage cost multiplier").selectOption("1.5");
+  await page.goto(url);await page.getByLabel("Market price change").focus();await page.keyboard.press("Home");await page.keyboard.press("ArrowRight");await page.keyboard.press("ArrowRight");await page.getByLabel("Additional rain delay").selectOption("1");await page.getByLabel("Storage cost multiplier").selectOption("1.5");
   const best=planLot(world,geo,lot,"balanced",{priceChangePercent:-20,additionalRainDays:1,storageCostMultiplier:1.5}).best;
   await expect(page.getByTestId("net-value")).toHaveText(best?money(best.net):"—");await expect(page.locator(".scenario-change")).toBeVisible();
 });
 test("quote download matches current inputs and calculated recommendation",async({page})=>{
-  await page.goto(url);await page.getByLabel("Market price change").fill("-10");
+  await page.goto(url);await page.getByLabel("Market price change").focus();await page.keyboard.press("Home");for(let i=0;i<4;i++)await page.keyboard.press("ArrowRight");
   const pending=page.waitForEvent("download");await page.getByRole("button",{name:"Export quote",exact:true}).click();
   const download=await pending;const file=await download.path();expect(file).not.toBeNull();const quote=JSON.parse(await readFile(file!,"utf8"));
   expect(quote.lot.lot_id).toBe(lot.lot_id);expect(quote.scenario.priceChangePercent).toBe(-10);

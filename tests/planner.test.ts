@@ -1,5 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import fixtureText from '../data/world-source';
 import { world, geo } from "../lib/world";
 import { checkStorage, defaultScenario, estimateSpoilage, getPriceForecast, planLot, riskEligibility, shelfLeft, transportCost, type Risk } from "../lib/planner";
 
@@ -82,6 +85,9 @@ test("invalid inputs fail rather than becoming recommendations", () => {
   assert.throws(()=>riskEligibility(100,"toString" as Risk));
 });
 test("exact fixture dimensions and independently observed seed-42 totals", () => {
+  assert.equal(fixtureText,readFileSync('data/world.json','utf8'));
+  assert.equal(createHash('sha256').update(fixtureText).digest('hex'),'a6df67a925f9e4de968c9baa455bcad67baa47e46b1fffca210c7d6c07961659');
+  assert.deepEqual(world,JSON.parse(fixtureText));
   assert.equal(world.lots.length,30); assert.equal(world.lots.reduce((s,l)=>s+l.kg,0),97509);
   assert.equal(Object.keys(world.prices).length,5); assert.equal(world.weather.length,480);
   for(const series of Object.values(world.prices)) assert.equal(series.length,120);
