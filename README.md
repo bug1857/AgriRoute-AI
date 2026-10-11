@@ -4,7 +4,7 @@
 
 ### Evidence-led harvest-to-market decision support
 
-**Commit for Good · Round 2 · Research prototype**
+**Commit for Good · Research prototype**
 
 A transparent system for comparing **SELL NOW**, **STORE**, and **REROUTE** decisions using explicit assumptions, deterministic calculations, and reviewable evidence.
 
